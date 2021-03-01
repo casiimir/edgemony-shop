@@ -1,14 +1,46 @@
 .Card
   display: flex
-  flex-direction: column
-  justify-content: flex-end
-  align-items: center
+  justify-content: space-between
 
-  width: 200px
+  width: 100%
   padding: 10px
+
+  background: #e7f5f4
   
-  border-radius: 3px
-  box-shadow: 0 0 4px rgba(0,0,0,.3)
-  
-  img
-    width: 100px
+  border-radius: 20px
+  box-shadow: 0 6px 24px rgba(0,0,0,.15)
+
+  .Card__img
+    display: flex
+    flex-direction: column
+    justify-content: center
+    align-items: center
+    min-width: 30%
+    max-width: 30%
+    min-height: 100px
+
+    padding: 10px
+
+    background: #fff
+    border-radius: 20px
+
+    img
+      max-width: 75px
+
+  .Card__info
+    width: 100%
+
+    padding: 0 20px
+
+    color: #252525
+    
+    h3
+      font-size: 1rem
+
+    .Card__info--price
+      font-weight: bold
+      &::after
+        content: '€'
+
+        padding: 0 2px
+        font-size: .7rem

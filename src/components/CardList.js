@@ -12,6 +12,7 @@ function CardList() {
                                         category={ product.category }
                                         title={ product.title }
                                         price={ product.price }
+                                        key={ product.id }
                                       /> )
       }
     </section>
