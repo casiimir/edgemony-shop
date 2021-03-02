@@ -6,6 +6,8 @@ const setMaxRangeTitle = (title) => (title.length >= 16) ?
   title.substring(0, 16) + '...' :
   title;
 
+const setRandomColor = () => '#' + Math.floor(Math.random()*16777215).toString(16);
+
 function Card({ image, category, title, price, description }) {
   const [modalOn, setModalOn] = useState(false);
 
@@ -13,7 +15,7 @@ function Card({ image, category, title, price, description }) {
     <>
     <article className="Card" onClick={ () => setModalOn(!modalOn) }>
       <div className="Card__img">
-        <div className="Card__img--shape"></div>
+        <div className="Card__img--shape" style={{ border: `2px dotted ${setRandomColor()}` }}></div>
         <img src={ image } alt={ category }/>
       </div>
       <div className="Card__info">
@@ -28,6 +30,7 @@ function Card({ image, category, title, price, description }) {
                     price={ price }
                     description={ description }
                     closeModal={ () => setModalOn(false) }
+                    randomColor={ setRandomColor() }
                   />
     }
     </>
