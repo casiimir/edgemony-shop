@@ -8,6 +8,7 @@ function Card({ image, category, title, price }) {
   return (
     <article className="Card">
       <div className="Card__img">
+        <div className="Card__img--shape"></div>
         <img src={ image } alt={ category }/>
       </div>
       <div className="Card__info">

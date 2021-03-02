@@ -1,14 +1,33 @@
 .Card
+  position: relative
   display: flex
   flex-direction: column
   justify-content: flex-start
 
   max-height: 300px
   margin: 15px 20px 0 0
+  padding: 0 5px
 
   border-radius: 20px
+  box-shadow: 4px 8px 12px #1818182a
+
+  opacity: .7
+  cursor: pointer
+
+  .Card__img--shape
+    position: absolute
+    
+    width: 80%
+    height: 100%
+
+    background: radial-gradient(circle, rgba(122,255,153,1) 0%, rgba(111,231,218,1) 100%)
+    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%
+
+    transition: border-radius 1s ease-out
+    // animation: shape-anim 50s ease-in-out infinite
 
   .Card__img
+    position: relative
     display: flex
     flex-direction: column
     justify-content: center
@@ -24,6 +43,8 @@
 
     img
       max-width: 100%
+      z-index: 1
+
 
   .Card__info
     display: flex
@@ -51,3 +72,17 @@
         padding: 0 2px
         font-size: .7rem
         color: #252525
+
+  &:hover
+    opacity: 1
+    transform: scale(1.2)
+    transition: .35s
+    z-index: 1
+
+@keyframes shape-anim
+  0%
+    transform: rotate(0)
+  100%
+    transform: rotate(360deg)
+
+    
