@@ -50,9 +50,10 @@
   &:hover img,
   &:focus img
     border-radius: 30% 60% 20% 30% / 80% 20% 50% 50%
+    transform: scale(1.2)
     
     opacity: 1
-    transition: 2.35s
+    transition: .35s
 
   
   .Card__info
@@ -84,17 +85,15 @@
 
   &:hover,
   &:focus
-    transform: scale(1.2)
+    transform: scale(1.1)
     transition: .35s
     z-index: 1
 
   &:active
     transform: scale(1)
     transition: .35s
-  &:active .Card__img
-    background: radial-gradient(circle, rgba(122,255,153,1) 0%, rgba(111,231,218,1) 100%)
-
-    
+  &:hover .Card__img
+    background: radial-gradient(circle, rgba(122,255,153,1) 0%, rgba(111,231,218,1) 100%)    
 
 @keyframes shape-anim
   0%
