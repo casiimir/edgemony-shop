@@ -1,28 +1,46 @@
 .Hero
+  position: relative
   display: flex
   flex-direction: column
   align-items: center
 
   margin: 0
 
+  .Hero--overlay
+    position: absolute
+  
+    width: 100%
+    height: 600px
+
+    background-color: #181818
+    border-radius: 4px
+
+    opacity: .3
+
   img
-    width: 800px
+    width: 100%
+    height: 600px
+    
+    object-fit: cover
     box-shadow: 0 2px 12px #1818184d
+
+    border-radius: 4px
   
   h1
     margin: 0
     padding: 0
 
-    position: relative
-    top: 15px
+    position: absolute
+    top: 35%
 
     padding: 10px 0
 
-    color: #110d0d
-    font-size: 2.5rem
+    color: #f1f1f1
+    font-size: 3.5rem
     font-weight: bolder
 
     text-decoration: underline
+    text-shadow: 2px 3px 8px #18181880
   p
     display: none
     
