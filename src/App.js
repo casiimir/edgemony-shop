@@ -1,3 +1,5 @@
+import { useState } from 'react';
+
 import Header from './components/Header';
 import Hero from './components/Hero';
 import CardList from './components/CardList';
@@ -18,6 +20,7 @@ const data = {
 };
 
 function App() {
+
   return (
     <>
       <div className="App"></div>
