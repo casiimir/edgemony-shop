@@ -4,7 +4,7 @@ import Header from './components/Header';
 import Hero from './components/Hero';
 import CardList from './components/CardList';
 import Loader from './components/Loader';
-import DataFailure from './components/DataFailure';
+import DataFail from './components/DataFail';
 import Footer from './components/Footer';
 import "./App.sass";
 
@@ -45,13 +45,17 @@ function App() {
         cover={ data.cover}
         description={ data.description }
       />
-
+      
+      {/* If fetch gets data from fakestoreapi.com then it'll render a loder
+          while downloaded. If not it'll render the DataFail component
+      */}
       {
         (isProductsLoad) ?
           (products) ?
-            <CardList products={ products }/> :
-            <Loader />
-          : <DataFailure />
+          <CardList products={ products }/> :
+          <Loader />
+        : 
+          <DataFail />
       }
       
       <Footer />
