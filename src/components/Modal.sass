@@ -14,6 +14,7 @@
 
   background: rgba(255,255,255,.8)
 
+  animation: fadeIn .35s
   z-index: 999
 
   .Modal__content
@@ -32,6 +33,8 @@
     border-radius: 16px
     background: rgba(255,255,255,1)
     cursor: pointer
+
+    animation: fadeIn .75s 
 
     img
       width: 200px
@@ -66,3 +69,10 @@
         transform: scale(1.4)
       &:active
         transform: scale(1)
+
+
+@keyframes fadeIn
+  0%
+    opacity: 0
+  100%
+    opacity: 1
