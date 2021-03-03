@@ -1,20 +1,20 @@
 import Card from './Card';
 import './CardList.sass';
 
-const fakeProducts = require("../mocks/data/products.json");
-
-function CardList() {
+function CardList({ products }) {
   return (
     <section className="CardList">
       { 
-        fakeProducts.map((product) => <Card
-                                        image={ product.image }
-                                        category={ product.category }
-                                        title={ product.title }
-                                        price={ product.price }
-                                        description={ product.description }
-                                        key={ product.id }
-                                      /> )
+        products.map((product) =>
+          <Card
+            image={ product.image }
+            category={ product.category }
+            title={ product.title }
+            price={ product.price }
+            description={ product.description }
+            key={ product.id }
+          />
+        )
       }
     </section>
   )
