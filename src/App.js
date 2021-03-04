@@ -21,20 +21,25 @@ function App() {
 
   const [ products, setProduct ] = useState();
   const [ isProductsLoad, setProductsLoad ] = useState(true);
+  const [ reloadAPICall, setReloadAPICall ] = useState(true);
+  const [ isErrorBanner, setErrorBanner ] = useState(false);
 
   useEffect(() => {
-    fetch('https://fakestoreapi.com/products')
-      .then(result => result.json())
-      .then(data => {
-        setProduct(data);
+    if (reloadAPICall) {
+      fetch('https://fakestoreapi.com/products')
+        .then(result => result.json())
+        .then(data => {          
+          setProduct(data);  
+          setProductsLoad(true);
+        })
 
-        setProductsLoad(true);
-      })
-      .catch((error) => {
-        console.log(error.message);
-        setProductsLoad(false);
-      })
-  }, []);
+        .catch((error) => {
+          console.log(error.message);
+          setProductsLoad(false);
+          setReloadAPICall(false);
+        })
+    }
+  }, [reloadAPICall]);
 
   return (
     <div className="App">
@@ -45,17 +50,21 @@ function App() {
         cover={ data.cover}
         description={ data.description }
       />
-      
+
       {/* If fetch gets data from fakestoreapi.com then it'll render a loder
           while downloaded. If not it'll render the DataFail component
       */}
+
       {
-        (isProductsLoad) ?
-          (products) ?
-          <CardList products={ products }/> :
-          <Loader />
-        : 
-          <DataFail />
+        isProductsLoad
+          ? (products)
+          ? <CardList products={ products }/>
+          : <Loader />
+        : <DataFail
+            setReloadAPICall={ () => setReloadAPICall(true) }
+            isErrorBanner={ isErrorBanner }
+            setErrorBanner={ () => setErrorBanner(true) }
+          />
       }
       
       <Footer />
