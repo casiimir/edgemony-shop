@@ -2,11 +2,16 @@ import { useState, useEffect } from 'react';
 
 import Header from './components/Header';
 import Hero from './components/Hero';
+import SearchField from './components/SearchField';
 import CardList from './components/CardList';
 import Loader from './components/Loader';
 import DataFail from './components/DataFail';
 import Footer from './components/Footer';
 import "./App.sass";
+
+const searchFilterProducts = (list, key) => {
+  return list.filter((products) => products.title.toLowerCase().includes(key));
+}
 
 const data = {
   title: "Edgemony Shop",
@@ -23,6 +28,7 @@ function App() {
   const [ isProductsLoad, setProductsLoad ] = useState(true);
   const [ reloadAPICall, setReloadAPICall ] = useState(true);
   const [ isErrorBanner, setErrorBanner ] = useState(false);
+  const [ searchProducts, setSearchProducts ] = useState('');
 
   useEffect(() => {
     if (reloadAPICall) {
@@ -41,6 +47,11 @@ function App() {
     }
   }, [reloadAPICall]);
 
+
+  const getValueFromInput = (evt) => {
+    setSearchProducts(evt.target.value)
+  }
+
   return (
     <div className="App">
       <Header logo={ data.logo }/>
@@ -51,20 +62,22 @@ function App() {
         description={ data.description }
       />
 
+      <SearchField setSearchProducts={ getValueFromInput }/>
+
       {/* If fetch gets data from fakestoreapi.com then it'll render a loder
           while downloaded. If not it'll render the DataFail component
       */}
 
       {
-        isProductsLoad
+        (isProductsLoad)
           ? (products)
-          ? <CardList products={ products }/>
-          : <Loader />
-        : <DataFail
+            ? <CardList products={ searchFilterProducts(products, searchProducts) }/>
+            : <Loader />
+          : <DataFail
             setReloadAPICall={ () => setReloadAPICall(true) }
             isErrorBanner={ isErrorBanner }
             setErrorBanner={ () => setErrorBanner(true) }
-          />
+            />
       }
       
       <Footer />
