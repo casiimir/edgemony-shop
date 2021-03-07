@@ -8,8 +8,7 @@
   margin: 15px 20px 0 0
   padding: 0 5px
 
-  border-radius: 20px
-  box-shadow: 4px 8px 12px #1818182a
+  box-shadow: 0 0 6px #1818182a
 
   cursor: pointer
   user-select: none
@@ -40,7 +39,6 @@
   &:active
     transform: scale(1)
   &:hover .Card__img
-    background: radial-gradient(circle, rgba(122,255,153,1) 0%, rgba(111,231,218,1) 100%)    
     opacity: .5
 
   .Card__img--shape
@@ -48,13 +46,6 @@
     
     width: 70%
     height: 80%
-
-    border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%
-    background: #6fe7db85
-    transition: border-radius 1s ease-out
-    animation: change-color-radius 3s ease-in-out infinite alternate
-    // animation: shape-anim 50s ease-in-out infinite
-
 
   .Card__img
     position: relative
@@ -66,29 +57,25 @@
     width: 180px
     height: 250px
 
-    padding: 60px 35px
+    padding: 30px 50px
 
     background: #fff
-    border-radius: 20px
 
     img
-      max-width: 100%
-      border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%
-      z-index: 1
+      width: 100px
       opacity: .85
-      transition: .35s
-
+      transition: .35
+      z-index: 1
 
   &:hover img,
   &:focus img
-    border-radius: 30% 60% 20% 30% / 80% 20% 50% 50%
     transform: scale(1.2)
     
     opacity: .5
   
   .Card__info
     display: flex
-    flex-direction: row
+    flex-direction: column
     justify-content: space-between
 
     width: 100%
@@ -96,30 +83,25 @@
 
     color: #252525
     h3
-      margin: 0
+      margin: 4px 0
       padding: 0
 
       max-width: 70%
-
       font-size: .75rem
+    
+    h4 
+      margin: 4px 0
+      padding: 0
+
+      font-size: .7rem
 
     .Card__info--price
       color: #929292
 
-      &::after
+      &::before
         content: '€'
 
         padding: 0 2px
         font-size: .7rem
         color: #252525
 
-
-@keyframes shape-anim
-  0%
-    transform: rotate(0)
-  100%
-    transform: rotate(360deg)
-
-@keyframes change-color-radius
-  100%
-    background: #7aff9975

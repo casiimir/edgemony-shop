@@ -17,12 +17,19 @@
       object-fit: cover
       filter: grayscale(70%) contrast(105%)
 
+    @media(max-width: 676px)
+      position: absolute
+
+      opacity: .45
+      filter: contrast(100%)
+      z-index: -1
+
   .Hero__info  
     display: flex
     flex-direction: column
     justify-content: center
 
-    padding: 20px 80px
+    margin: 20px 80px
 
     h1
       color: #181818
