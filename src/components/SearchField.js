@@ -1,13 +1,12 @@
-import './SearchField.sass'
+import './SearchField.sass';
 
 function SearchField({ setSearchProducts }) {
-
-  return(
+  return (
     <div className="SearchField">
       <label htmlFor="search">Search</label>
-      <input type="search" id="search" onInput={ (e) => setSearchProducts(e) } />
+      <input type="search" id="search" onInput={(e) => setSearchProducts(e)} />
     </div>
-  )
+  );
 }
 
-export default SearchField
+export default SearchField;

@@ -10,14 +10,6 @@ import DataFail from './components/DataFail';
 import Footer from './components/Footer';
 import './App.sass';
 
-const searchFilterProducts = (list, key) => {
-  return list.filter((products) => products.title.toLowerCase().includes(key));
-};
-
-const filterListByCategory = (list, category) => {
-  return list.filter((products) => products.category.includes(category));
-};
-
 const data = {
   title: 'Edgemony Shop',
   description: 'A fake e-commerce with a lot of potential',
@@ -56,7 +48,8 @@ function App() {
   // Search state management
   const [searchProducts, setSearchProducts] = useState('');
   // Get the input from SearchField <input> onInput
-  const getValueFromInput = (evt) => setSearchProducts(evt.target.value);
+  const getValueFromInput = (evt) =>
+    setSearchProducts(evt.target.value.toLowerCase());
 
   // Tag state management
   const [tagSelected, setTagSelected] = useState([]);
@@ -75,15 +68,17 @@ function App() {
         description={data.description}
       />
 
-      <SearchField setSearchProducts={getValueFromInput} />
+      <div className="Search">
+        <SearchField setSearchProducts={getValueFromInput} />
 
-      <Categories
-        tagSelected={(key) => {
-          getCategoriesFromTag(key);
-        }}
-      />
+        <Categories
+          tagSelected={(key) => {
+            getCategoriesFromTag(key);
+          }}
+        />
+      </div>
 
-      {/* If fetch gets data from fakestoreapi.com then it'll render a loder
+      {/* If fetch gets data from fakestoreapi.com then it'll render a loader
           while downloaded. If not it'll render the DataFail component
       */}
 
@@ -92,7 +87,7 @@ function App() {
           <CardList
             products={products
               .filter((product) => product.category.includes(tagSelected))
-              .filter((el) => el.title.includes(searchProducts))}
+              .filter((el) => el.title.toLowerCase().includes(searchProducts))}
           />
         ) : (
           <Loader />
