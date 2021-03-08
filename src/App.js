@@ -58,9 +58,12 @@ function App() {
     setTagSelected(evt);
   };
 
+  // Shop cart state management
+  const [shopCart, setShopCart] = useState([]);
+
   return (
     <div className="App">
-      <Header logo={data.logo} />
+      <Header logo={data.logo} shopCart={shopCart} />
 
       <Hero
         title={data.title}
@@ -79,15 +82,20 @@ function App() {
       </div>
 
       {/* If fetch gets data from fakestoreapi.com then it'll render a loader
-          while downloaded. If not it'll render the DataFail component
-      */}
-
+            while downloaded. If not it'll render the DataFail component
+        */}
       {isProductsLoad ? (
         products ? (
           <CardList
             products={products
               .filter((product) => product.category.includes(tagSelected))
-              .filter((el) => el.title.toLowerCase().includes(searchProducts))}
+              .filter(
+                (el) =>
+                  el.title.toLowerCase().includes(searchProducts) ||
+                  el.description.toLowerCase().includes(searchProducts)
+              )}
+            shopCart={shopCart}
+            setShopCart={(articles) => setShopCart(articles)}
           />
         ) : (
           <Loader />

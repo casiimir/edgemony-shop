@@ -8,7 +8,15 @@ const setMaxRangeTitle = (title) =>
 const setRandomColor = () =>
   '#' + Math.floor(Math.random() * 16777215).toString(16);
 
-function Card({ image, category, title, price, description }) {
+function Card({
+  image,
+  category,
+  title,
+  price,
+  description,
+  shopCart,
+  setShopCart
+}) {
   const [modalOn, setModalOn] = useState(false);
 
   return (
@@ -32,6 +40,8 @@ function Card({ image, category, title, price, description }) {
           description={description}
           closeModal={() => setModalOn(false)}
           randomColor={setRandomColor()}
+          shopCart={shopCart}
+          setShopCart={setShopCart}
         />
       )}
     </>
