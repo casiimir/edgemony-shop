@@ -1,4 +1,5 @@
 import { useState, useEffect } from 'react';
+import { getProductsAPI } from './services/api.js';
 
 import Header from './components/Header';
 import Hero from './components/Hero';
@@ -27,13 +28,11 @@ function App() {
 
   useEffect(() => {
     if (reloadAPICall) {
-      fetch('https://fakestoreapi.com/products')
-        .then((result) => result.json())
+      getProductsAPI()
         .then((data) => {
           setProduct(data);
           setProductsLoad(true);
         })
-
         .catch((error) => {
           console.log(error.message);
           setProductsLoad(false);
