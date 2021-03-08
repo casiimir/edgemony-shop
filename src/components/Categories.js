@@ -1,15 +1,19 @@
 import { useEffect, useState } from 'react';
+import { getCategoriesAPI } from '../services/api.js';
 import './Categories.sass';
 
 export default function Categories({ tagSelected }) {
   const [categories, setCategories] = useState([]);
   const [activeTag, setActiveTag] = useState('');
+  const [reloadCat, setReloadCat] = useState(false);
 
   useEffect(() => {
-    fetch('https://fakestoreapi.com/products/categories')
-      .then((result) => result.json())
-      .then((data) => setCategories(data));
-  }, []);
+    getCategoriesAPI()
+      .then((data) => setCategories(data))
+      .catch((error) => {
+        setReloadCat(true);
+      });
+  }, [reloadCat]);
 
   return (
     <div className="Categories">

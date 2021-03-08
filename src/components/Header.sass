@@ -9,12 +9,29 @@
   padding: 0 25px
 
   background-color: #fff
-  z-index: 1
+  z-index: 9
   
   .Header__logo
     width: 200px
     filter: invert(60%) sepia(0%) saturate(493%) hue-rotate(178deg) brightness(100%) contrast(450%)
 
-  .Header__shopping
-    align-self: center
-    height: 20px
+  .chart    
+    display: flex
+    align-items: center
+
+    .chart--shopping
+      height: 25px
+
+    .chart--total
+      position: relative
+      left: -10px
+      
+    .chart--elsInChart
+      position: absolute
+      right: 5px
+      
+      border-radius: 100%
+      padding: 2.8px 7px
+
+      color: #1818189a
+      font-size: 1.2rem
