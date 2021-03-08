@@ -1,48 +1,58 @@
 .Hero
   position: relative
   display: flex
-  flex-direction: column
+  flex-direction: row
   align-items: center
+  justify-content: space-between
+
+  height: 100vh
 
   margin: 0
 
-  .Hero--overlay
-    position: absolute
-  
-    width: 100%
-    height: 600px
+  .Hero__image
+    img
+      width: 100%
+      height: 101vh
+      
+      object-fit: cover
+      filter: grayscale(70%) contrast(105%)
 
-    background-color: #181818
-    border-radius: 4px
+    @media(max-width: 676px)
+      position: absolute
 
-    opacity: .3
+      opacity: .45
+      filter: contrast(100%)
+      z-index: -1
 
-  img
-    width: 100%
-    height: 600px
-    
-    object-fit: cover
-    box-shadow: 0 2px 12px #1818184d
+  .Hero__info  
+    display: flex
+    flex-direction: column
+    justify-content: center
 
-    border-radius: 4px
-  
-  h1
-    margin: 0
-    padding: 0
+    margin: 20px 80px
 
-    position: absolute
-    top: 35%
+    h1
+      color: #181818
+      font-size: 3rem
 
-    padding: 10px 0
+      font-weight: normal
+    p
+      position: relative
+      top: -87px
+      left: 130px
 
-    color: #f1f1f1
-    font-size: 3.5rem
-    font-weight: bolder
+      width: 65%
 
-    text-decoration: underline
-    text-shadow: 2px 3px 8px #18181880
-  p
-    display: none
-    
-    @media (min-width: 676px)
-      display: block
+      font-size: .9rem
+
+      &::before
+        position: absolute
+        top: 0
+        left: -5px
+
+        content: ''
+
+        width: 1px
+        height: 28px
+
+        background: #181818

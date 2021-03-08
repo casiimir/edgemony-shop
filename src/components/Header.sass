@@ -1,4 +1,6 @@
 .Header
+  position: fixed
+
   display: flex
   flex-direction: row
   justify-content: space-between
@@ -6,8 +8,9 @@
   width: 100%
   padding: 0 25px
 
-  box-shadow: 0 2px 12px #1818184d
-
+  background-color: #fff
+  z-index: 1
+  
   .Header__logo
     width: 200px
     filter: invert(60%) sepia(0%) saturate(493%) hue-rotate(178deg) brightness(100%) contrast(450%)
@@ -15,4 +18,3 @@
   .Header__shopping
     align-self: center
     height: 20px
-  
