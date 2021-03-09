@@ -1,11 +1,14 @@
 import './Header.sass';
-import ShoppingCart from './ShoppingCart';
+import ShoppingCartHeader from './ShoppingCartHeader';
 
-function Header({ logo, shopCartProducts }) {
+function Header({ logo, shopCartProducts, setOpenChart }) {
   return (
     <header className="Header">
       <img className="Header__logo" src={logo} alt="logo" />
-      <ShoppingCart shopCartProducts={shopCartProducts} />
+      <ShoppingCartHeader
+        shopCartProducts={shopCartProducts}
+        setOpenChart={setOpenChart}
+      />
     </header>
   );
 }
