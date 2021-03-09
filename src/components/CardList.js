@@ -1,13 +1,7 @@
 import Card from './Card';
 import './CardList.sass';
 
-function CardList({
-  products,
-  setModalOpen,
-  setModalProduct,
-  shopCart,
-  setShopCart
-}) {
+function CardList({ products, setModalOpen, setModalProduct }) {
   return (
     <section className="CardList">
       {products.map((product) => (
@@ -15,8 +9,6 @@ function CardList({
           product={product}
           setModalOpen={setModalOpen}
           setModalProduct={setModalProduct}
-          shopCart={shopCart}
-          setShopCart={setShopCart}
           key={product.id}
         />
       ))}

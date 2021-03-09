@@ -1,8 +1,13 @@
-import { useState } from 'react';
 import './Modal.sass';
 
-function Modal({ product, shopCart, setShopCart, setModalOpen }) {
-  const [disableButton, setDisableButton] = useState(false);
+function Modal({
+  product,
+  shopCartProducts,
+  setShopCartProducts,
+  setModalOpen
+}) {
+  const shopCartProductsIncludes = (value) =>
+    shopCartProducts.find((pro) => pro.title.includes(value));
 
   const { image, title, description, price } = product;
   return (
@@ -17,13 +22,15 @@ function Modal({ product, shopCart, setShopCart, setModalOpen }) {
         <p>{description}</p>
         <p className="Modal__content--price">{price}</p>
         <button
-          onClick={() => {
-            setShopCart([...shopCart, { title: title, price: price }]);
-            setDisableButton(true);
-          }}
-          disabled={disableButton && true}
+          onClick={() =>
+            setShopCartProducts([
+              ...shopCartProducts,
+              { title: title, price: price }
+            ])
+          }
+          disabled={shopCartProductsIncludes(title) && true}
         >
-          {!disableButton ? 'Add to cart' : 'In cart'}
+          {shopCartProductsIncludes(title) ? 'Add to cart' : 'In cart'}
         </button>
       </div>
     </div>

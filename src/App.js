@@ -63,11 +63,11 @@ function App() {
   };
 
   // Shop cart state management
-  const [shopCart, setShopCart] = useState([]);
+  const [shopCartProducts, setShopCartProducts] = useState([]);
 
   return (
     <div className="App">
-      <Header logo={data.logo} shopCart={shopCart} />
+      <Header logo={data.logo} shopCartProducts={shopCartProducts} />
 
       <Hero
         title={data.title}
@@ -100,8 +100,6 @@ function App() {
               )}
             setModalOpen={setModalOpen}
             setModalProduct={(value) => setModalProduct(value)}
-            shopCart={shopCart}
-            setShopCart={(articles) => setShopCart(articles)}
           />
         ) : (
           <Loader />
@@ -120,8 +118,8 @@ function App() {
           <Modal
             product={modalProduct}
             setModalOpen={setModalOpen}
-            shopCart={shopCart}
-            setShopCart={setShopCart}
+            shopCartProducts={shopCartProducts}
+            setShopCartProducts={setShopCartProducts}
           />
         )
       }
