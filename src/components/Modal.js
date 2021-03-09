@@ -1,22 +1,15 @@
 import { useState } from 'react';
 import './Modal.sass';
 
-function Modal({
-  image,
-  title,
-  description,
-  price,
-  shopCart,
-  setShopCart,
-  closeModal
-}) {
+function Modal({ product, shopCart, setShopCart, setModalOpen }) {
   const [disableButton, setDisableButton] = useState(false);
 
+  const { image, title, description, price } = product;
   return (
     <div className="Modal">
-      <div className="Modal--overlay" onClick={() => closeModal()}></div>
+      <div className="Modal--overlay" onClick={() => setModalOpen(false)}></div>
       <div className="Modal__content">
-        <div className="closeButton" onClick={() => closeModal()}>
+        <div className="closeButton" onClick={() => setModalOpen(false)}>
           X
         </div>
         <img src={image} alt={title} />
