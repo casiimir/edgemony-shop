@@ -7,6 +7,7 @@ import SearchField from './components/SearchField';
 import Categories from './components/Categories';
 import CardList from './components/CardList';
 import Loader from './components/Loader';
+import Modal from './components/Modal';
 import DataFail from './components/DataFail';
 import Footer from './components/Footer';
 import './App.sass';
@@ -44,6 +45,10 @@ function App() {
   // Error API state management
   const [isErrorBanner, setErrorBanner] = useState(false);
 
+  // Modal state management
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [modalProduct, setModalProduct] = useState({});
+
   // Search state management
   const [searchProducts, setSearchProducts] = useState('');
   // Get the input from SearchField <input> onInput
@@ -58,11 +63,11 @@ function App() {
   };
 
   // Shop cart state management
-  const [shopCart, setShopCart] = useState([]);
+  const [shopCartProducts, setShopCartProducts] = useState([]);
 
   return (
     <div className="App">
-      <Header logo={data.logo} shopCart={shopCart} />
+      <Header logo={data.logo} shopCartProducts={shopCartProducts} />
 
       <Hero
         title={data.title}
@@ -93,8 +98,8 @@ function App() {
                   el.title.toLowerCase().includes(searchProducts) ||
                   el.description.toLowerCase().includes(searchProducts)
               )}
-            shopCart={shopCart}
-            setShopCart={(articles) => setShopCart(articles)}
+            setModalOpen={setModalOpen}
+            setModalProduct={(value) => setModalProduct(value)}
           />
         ) : (
           <Loader />
@@ -107,6 +112,17 @@ function App() {
         />
       )}
 
+      {
+        /* Set Modal if click in one of the products' card */
+        isModalOpen && (
+          <Modal
+            product={modalProduct}
+            setModalOpen={setModalOpen}
+            shopCartProducts={shopCartProducts}
+            setShopCartProducts={setShopCartProducts}
+          />
+        )
+      }
       <Footer />
     </div>
   );

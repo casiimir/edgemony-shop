@@ -1,18 +1,14 @@
 import Card from './Card';
 import './CardList.sass';
 
-function CardList({ products, shopCart, setShopCart }) {
+function CardList({ products, setModalOpen, setModalProduct }) {
   return (
     <section className="CardList">
       {products.map((product) => (
         <Card
-          image={product.image}
-          category={product.category}
-          title={product.title}
-          price={product.price}
-          description={product.description}
-          shopCart={shopCart}
-          setShopCart={setShopCart}
+          product={product}
+          setModalOpen={setModalOpen}
+          setModalProduct={setModalProduct}
           key={product.id}
         />
       ))}

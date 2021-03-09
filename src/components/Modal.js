@@ -1,22 +1,20 @@
-import { useState } from 'react';
 import './Modal.sass';
 
 function Modal({
-  image,
-  title,
-  description,
-  price,
-  shopCart,
-  setShopCart,
-  closeModal
+  product,
+  shopCartProducts,
+  setShopCartProducts,
+  setModalOpen
 }) {
-  const [disableButton, setDisableButton] = useState(false);
+  const shopCartProductsIncludes = (value) =>
+    shopCartProducts.find((pro) => pro.title.includes(value));
 
+  const { image, title, description, price } = product;
   return (
     <div className="Modal">
-      <div className="Modal--overlay" onClick={() => closeModal()}></div>
+      <div className="Modal--overlay" onClick={() => setModalOpen(false)}></div>
       <div className="Modal__content">
-        <div className="closeButton" onClick={() => closeModal()}>
+        <div className="closeButton" onClick={() => setModalOpen(false)}>
           X
         </div>
         <img src={image} alt={title} />
@@ -24,13 +22,15 @@ function Modal({
         <p>{description}</p>
         <p className="Modal__content--price">{price}</p>
         <button
-          onClick={() => {
-            setShopCart([...shopCart, { title: title, price: price }]);
-            setDisableButton(true);
-          }}
-          disabled={disableButton && true}
+          onClick={() =>
+            setShopCartProducts([
+              ...shopCartProducts,
+              { title: title, price: price }
+            ])
+          }
+          disabled={shopCartProductsIncludes(title) && true}
         >
-          {!disableButton ? 'Add to cart' : 'In cart'}
+          {shopCartProductsIncludes(title) ? 'Add to cart' : 'In cart'}
         </button>
       </div>
     </div>
