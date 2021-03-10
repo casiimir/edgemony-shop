@@ -7,9 +7,11 @@ import SearchField from './components/SearchField';
 import Categories from './components/Categories';
 import CardList from './components/CardList';
 import Loader from './components/Loader';
-import Modal from './components/Modal';
 import DataFail from './components/DataFail';
 import Footer from './components/Footer';
+
+import Modal from './components/Modal';
+import ShoppingCartModal from './components/ShoppingCartModal';
 import './App.sass';
 
 const data = {
@@ -64,10 +66,15 @@ function App() {
 
   // Shop cart state management
   const [shopCartProducts, setShopCartProducts] = useState([]);
+  const [isOpenChart, setOpenChart] = useState(false);
 
   return (
-    <div className="App">
-      <Header logo={data.logo} shopCartProducts={shopCartProducts} />
+    <div className={isOpenChart ? 'App blockScroll' : 'App'}>
+      <Header
+        logo={data.logo}
+        shopCartProducts={shopCartProducts}
+        setOpenChart={setOpenChart}
+      />
 
       <Hero
         title={data.title}
@@ -113,7 +120,7 @@ function App() {
       )}
 
       {
-        /* Set Modal if click in one of the products' card */
+        // Show Product Modal if click in one of the products' card
         isModalOpen && (
           <Modal
             product={modalProduct}
@@ -123,6 +130,19 @@ function App() {
           />
         )
       }
+
+      {
+        // Show Shop Cart Modal if click in header's icon
+        isOpenChart && (
+          <ShoppingCartModal
+            shopCartProducts={shopCartProducts}
+            setModalOpen={setModalOpen}
+            setModalProduct={setModalProduct}
+            setOpenChart={setOpenChart}
+          />
+        )
+      }
+
       <Footer />
     </div>
   );

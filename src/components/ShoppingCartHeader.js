@@ -1,7 +1,7 @@
-import './ShoppingCart.sass';
+import './ShoppingCartHeader.sass';
 import shoppingCartIco from '../mocks/img/shopping-cart.png';
 
-function ShoppingCart({ shopCartProducts }) {
+function ShoppingCartHeader({ shopCartProducts, setOpenChart }) {
   const sumCartTotal = () => {
     let tot = 0;
 
@@ -16,6 +16,7 @@ function ShoppingCart({ shopCartProducts }) {
         className="chart--shopping"
         src={shoppingCartIco}
         alt="shopping-cart"
+        onClick={() => setOpenChart(true)}
       />
       <div className="chart--elsInChart">
         {shopCartProducts.length > 0 ? shopCartProducts.length : ''}
@@ -24,4 +25,4 @@ function ShoppingCart({ shopCartProducts }) {
   );
 }
 
-export default ShoppingCart;
+export default ShoppingCartHeader;

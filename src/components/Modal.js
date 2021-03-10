@@ -9,7 +9,7 @@ function Modal({
   const shopCartProductsIncludes = (value) =>
     shopCartProducts.find((pro) => pro.title.includes(value));
 
-  const { image, title, description, price } = product;
+  const { image, title, description, price, id } = product;
   return (
     <div className="Modal">
       <div className="Modal--overlay" onClick={() => setModalOpen(false)}></div>
@@ -25,7 +25,13 @@ function Modal({
           onClick={() =>
             setShopCartProducts([
               ...shopCartProducts,
-              { title: title, price: price }
+              {
+                title: title,
+                price: price,
+                image: image,
+                description: description,
+                id: id
+              }
             ])
           }
           disabled={shopCartProductsIncludes(title) && true}
