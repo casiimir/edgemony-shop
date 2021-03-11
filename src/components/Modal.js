@@ -23,21 +23,26 @@ function Modal({
         <p className="Modal__content--price">{price}</p>
         <button
           onClick={() =>
-            setShopCartProducts([
-              ...shopCartProducts,
-              {
-                title: title,
-                price: price,
-                image: image,
-                description: description,
-                id: id,
-                quantity: 1
-              }
-            ])
+            !shopCartProductsIncludes(title)
+              ? setShopCartProducts([
+                  ...shopCartProducts,
+                  {
+                    title: title,
+                    price: price,
+                    image: image,
+                    description: description,
+                    id: id,
+                    quantity: 1
+                  }
+                ])
+              : setShopCartProducts(
+                  shopCartProducts.filter((product) => product.id !== id)
+                )
           }
-          disabled={shopCartProductsIncludes(title) && true}
         >
-          {shopCartProductsIncludes(title) ? 'Add to cart' : 'In cart'}
+          {!shopCartProductsIncludes(title)
+            ? 'Add to cart'
+            : 'Remove from cart'}
         </button>
       </div>
     </div>

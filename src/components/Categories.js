@@ -2,7 +2,7 @@ import { useEffect, useState } from 'react';
 import { getCategoriesAPI } from '../services/api.js';
 import './Categories.sass';
 
-export default function Categories({ tagSelected }) {
+export default function Categories({ setTagSelected }) {
   const [categories, setCategories] = useState([]);
   const [activeTag, setActiveTag] = useState('');
   const [reloadCat, setReloadCat] = useState(false);
@@ -25,11 +25,11 @@ export default function Categories({ tagSelected }) {
             onClick={(e) => {
               if (e.target.textContent === activeTag) {
                 e.target.className = 'tag';
-                setActiveTag(cat);
-                tagSelected('');
+                setActiveTag([...activeTag, cat]);
+                setTagSelected('');
               } else {
                 setActiveTag(cat);
-                tagSelected(cat);
+                setTagSelected(cat);
               }
             }}
           >

@@ -4,7 +4,8 @@ function ShoppingCartModal({
   shopCartProducts,
   setOpenChart,
   editQuantity,
-  removeItemFromChart
+  removeItemFromChart,
+  calculateTotalPrice
 }) {
   return (
     <div className="ShoppingCartModal">
@@ -54,19 +55,10 @@ function ShoppingCartModal({
             </button>
           </main>
         ))}
-        <main>
-          {/* <CardList
-            products={shopCartProducts}
-            setModalOpen={setModalOpen}
-            setModalProduct={setModalProduct}
-          /> */}
-        </main>
         <footer>
           <p>
             {shopCartProducts.length >= 1
-              ? `Total: ${shopCartProducts
-                  .reduce((cont, product) => cont + product.price, 0)
-                  .toFixed(2)} €`
+              ? `Total: ${calculateTotalPrice()}`
               : 'No product available in this cart.'}
           </p>
         </footer>

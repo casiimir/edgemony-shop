@@ -11,6 +11,7 @@ import DataFail from './components/DataFail';
 import Footer from './components/Footer';
 
 import GenericModal from './components/GenericModal';
+import ShoppingCart from './components/ShoppingCart';
 import Modal from './components/Modal';
 import ShoppingCartModal from './components/ShoppingCartModal';
 import './App.sass';
@@ -58,16 +59,22 @@ function App() {
   const getValueFromInput = (evt) =>
     setSearchProducts(evt.target.value.toLowerCase());
 
-  // Tag state management
+  // Tag (Categories) state management
   const [tagSelected, setTagSelected] = useState([]);
-
-  const getCategoriesFromTag = (evt) => {
-    setTagSelected(evt);
-  };
 
   // Shop cart state management
   const [shopCartProducts, setShopCartProducts] = useState([]);
   const [isOpenChart, setOpenChart] = useState(false);
+
+  const calculateTotalPrice = () => {
+    const value = shopCartProducts
+      .reduce((cont, product) => cont + product.price * product.quantity, 0)
+      .toFixed(2);
+    return new Intl.NumberFormat('it-IT', {
+      style: 'currency',
+      currency: 'EUR'
+    }).format(value);
+  };
 
   const editQuantity = (productID, quantity) => {
     setShopCartProducts(
@@ -83,15 +90,18 @@ function App() {
     );
   };
 
-  // Generic Modal state managemente
-  const [isGenericModalOpen, setGenericModalOpen] = useState(true);
+  // Generic Modal state management
+  const [isGenericModalOpen, setGenericModalOpen] = useState(false);
 
   return (
-    <div className={isOpenChart ? 'App blockScroll' : 'App'}>
+    <div className={isGenericModalOpen ? 'App blockScroll' : 'App'}>
       <Header
         logo={data.logo}
         shopCartProducts={shopCartProducts}
         setOpenChart={setOpenChart}
+        calculateTotalPrice={calculateTotalPrice}
+        isGenericModalOpen={isGenericModalOpen}
+        setGenericModalOpen={setGenericModalOpen}
       />
 
       <Hero
@@ -103,16 +113,9 @@ function App() {
       <div className="Search">
         <SearchField setSearchProducts={getValueFromInput} />
 
-        <Categories
-          tagSelected={(key) => {
-            getCategoriesFromTag(key);
-          }}
-        />
+        <Categories setTagSelected={setTagSelected} />
       </div>
 
-      {/* If fetch gets data from fakestoreapi.com then it'll render a loader
-            while downloaded. If not it'll render the DataFail component
-        */}
       {isProductsLoad ? (
         products ? (
           <CardList
@@ -159,22 +162,36 @@ function App() {
             setOpenChart={setOpenChart}
             editQuantity={editQuantity}
             removeItemFromChart={removeItemFromChart}
+            calculateTotalPrice={calculateTotalPrice}
           />
         )
       }
 
-      {/* {isGenericModalOpen && isOpenChart && (
-        <GenericModal isOpen={isGenericModalOpen} onClose={setGenericModalOpen}>
-          <ShoppingCartModal
+      {isGenericModalOpen && (
+        <GenericModal
+          isOpen={isGenericModalOpen}
+          onClose={setGenericModalOpen}
+          title="Cart"
+        >
+          <ShoppingCart
             shopCartProducts={shopCartProducts}
             setModalOpen={setModalOpen}
             setModalProduct={setModalProduct}
             setOpenChart={setOpenChart}
             editQuantity={editQuantity}
             removeItemFromChart={removeItemFromChart}
+            calculateTotalPrice={calculateTotalPrice}
           />
+          {/* <ShoppingCartModal
+            shopCartProducts={shopCartProducts}
+            setModalOpen={setModalOpen}
+            setModalProduct={setModalProduct}
+            setOpenChart={setOpenChart}
+            editQuantity={editQuantity}
+            removeItemFromChart={removeItemFromChart}
+          /> */}
         </GenericModal>
-      )} */}
+      )}
       <Footer />
     </div>
   );
