@@ -30,7 +30,8 @@ function Modal({
                 price: price,
                 image: image,
                 description: description,
-                id: id
+                id: id,
+                quantity: 1
               }
             ])
           }
