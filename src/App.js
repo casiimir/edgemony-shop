@@ -10,6 +10,7 @@ import Loader from './components/Loader';
 import DataFail from './components/DataFail';
 import Footer from './components/Footer';
 
+import GenericModal from './components/GenericModal';
 import Modal from './components/Modal';
 import ShoppingCartModal from './components/ShoppingCartModal';
 import './App.sass';
@@ -67,6 +68,23 @@ function App() {
   // Shop cart state management
   const [shopCartProducts, setShopCartProducts] = useState([]);
   const [isOpenChart, setOpenChart] = useState(false);
+
+  const editQuantity = (productID, quantity) => {
+    setShopCartProducts(
+      shopCartProducts.map((cartItem) =>
+        productID === cartItem.id ? { ...cartItem, quantity } : cartItem
+      )
+    );
+  };
+
+  const removeItemFromChart = (productID) => {
+    setShopCartProducts(
+      shopCartProducts.filter((cartItem) => cartItem.id !== productID)
+    );
+  };
+
+  // Generic Modal state managemente
+  const [isGenericModalOpen, setGenericModalOpen] = useState(true);
 
   return (
     <div className={isOpenChart ? 'App blockScroll' : 'App'}>
@@ -139,10 +157,24 @@ function App() {
             setModalOpen={setModalOpen}
             setModalProduct={setModalProduct}
             setOpenChart={setOpenChart}
+            editQuantity={editQuantity}
+            removeItemFromChart={removeItemFromChart}
           />
         )
       }
 
+      {/* {isGenericModalOpen && isOpenChart && (
+        <GenericModal isOpen={isGenericModalOpen} onClose={setGenericModalOpen}>
+          <ShoppingCartModal
+            shopCartProducts={shopCartProducts}
+            setModalOpen={setModalOpen}
+            setModalProduct={setModalProduct}
+            setOpenChart={setOpenChart}
+            editQuantity={editQuantity}
+            removeItemFromChart={removeItemFromChart}
+          />
+        </GenericModal>
+      )} */}
       <Footer />
     </div>
   );

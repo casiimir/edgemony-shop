@@ -1,16 +1,18 @@
-.ShoppingCartModal
+.GenericModal
   position: fixed
-  top: 50px
+  top: 58px
   left: 0
   right: 0
   bottom: 0
 
+  height: 100vh
+
   display: flex  
   justify-content: flex-end    
 
-  z-index: 1
+  z-index: 9
 
-  .ShoppingCartModal--overlay
+  .GenericModal--overlay
     position: fixed
     top: 0
     left: 0
@@ -22,35 +24,24 @@
     opacity: .75
     z-index: -1
 
-  .ShoppingCartModal__content
+  .GenericModal__content
     display: flex
     flex-direction: column
-    justify-content: center
     align-items: center
     width: 100%
 
     background: #fff
-    box-shadow: 0 0 8px 1px #1818185d
+    box-shadow: 0 2px 2px #18181846
+
     @media(min-width: 676px)
       width: 65%
-    
+
     header
       display: flex
-      justify-content: space-around
+      justify-content: space-between
       align-items: center
+      
+      padding: 5px 50px
+      width: 100%
 
-      width: 100px
-    main
-      overflow-y: auto
-      border: 1px solid 
-      width: 250px
-      .image
-        img
-          width: 100px
-      .content
-        display: flex
-        justify-content: center
-        align-items: center
-
-
-
+      box-shadow: 0 1px 2px #18181825
