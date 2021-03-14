@@ -1,0 +1,22 @@
+{
+  "files": {
+    "main.css": "/edgemony-shop/static/css/main.a251e9df.chunk.css",
+    "main.js": "/edgemony-shop/static/js/main.56c98542.chunk.js",
+    "main.js.map": "/edgemony-shop/static/js/main.56c98542.chunk.js.map",
+    "runtime-main.js": "/edgemony-shop/static/js/runtime-main.b5c92beb.js",
+    "runtime-main.js.map": "/edgemony-shop/static/js/runtime-main.b5c92beb.js.map",
+    "static/js/2.a39fddbd.chunk.js": "/edgemony-shop/static/js/2.a39fddbd.chunk.js",
+    "static/js/2.a39fddbd.chunk.js.map": "/edgemony-shop/static/js/2.a39fddbd.chunk.js.map",
+    "static/js/3.c2b1cf6b.chunk.js": "/edgemony-shop/static/js/3.c2b1cf6b.chunk.js",
+    "static/js/3.c2b1cf6b.chunk.js.map": "/edgemony-shop/static/js/3.c2b1cf6b.chunk.js.map",
+    "index.html": "/edgemony-shop/index.html",
+    "static/css/main.a251e9df.chunk.css.map": "/edgemony-shop/static/css/main.a251e9df.chunk.css.map",
+    "static/js/2.a39fddbd.chunk.js.LICENSE.txt": "/edgemony-shop/static/js/2.a39fddbd.chunk.js.LICENSE.txt"
+  },
+  "entrypoints": [
+    "static/js/runtime-main.b5c92beb.js",
+    "static/js/2.a39fddbd.chunk.js",
+    "static/css/main.a251e9df.chunk.css",
+    "static/js/main.56c98542.chunk.js"
+  ]
+}
