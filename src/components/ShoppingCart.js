@@ -1,3 +1,4 @@
+import { setMaxRangeTitle } from '../services/utils.js';
 import './ShoppingCart.sass';
 
 export default function ShoppingCart({
@@ -14,39 +15,51 @@ export default function ShoppingCart({
           <div className="image">
             <img src={product.image} alt={product.title} />
           </div>
-          <h3>{product.title}</h3>
           <div className="content">
+            <h3>
+              {window.innerWidth <= 500
+                ? setMaxRangeTitle(product.title, 20)
+                : product.title}
+            </h3>
             <p>{product.price}€</p>
+          </div>
+          <div className="buttons">
+            <div className="buttons__quantity">
+              <button
+                type="button"
+                onClick={() => {
+                  //quantity --
+                  product.quantity > 1 &&
+                    editQuantity(product.id, product.quantity - 1);
+                }}
+              >
+                -
+              </button>
+              <p>{product.quantity}</p>
+              <button
+                type="button"
+                onClick={() => {
+                  //quantity ++
+                  editQuantity(product.id, product.quantity + 1);
+                }}
+              >
+                +
+              </button>
+            </div>
             <button
+              className="removeBtn"
               type="button"
-              onClick={() => {
-                //quantity --
-                product.quantity > 1 &&
-                  editQuantity(product.id, product.quantity - 1);
-              }}
+              onClick={() => removeItemFromChart(product.id)}
             >
-              -
-            </button>
-            <p>{product.quantity}</p>
-            <button
-              type="button"
-              onClick={() => {
-                //quantity ++
-                editQuantity(product.id, product.quantity + 1);
-              }}
-            >
-              +
+              remove
             </button>
           </div>
-          <button type="button" onClick={() => removeItemFromChart(product.id)}>
-            remove
-          </button>
         </article>
       ))}
       <footer>
         <p>
           {shopCartProducts.length >= 1
-            ? `Total: ${calculateTotalPrice()}`
+            ? calculateTotalPrice()
             : 'No product available in this cart.'}
         </p>
       </footer>

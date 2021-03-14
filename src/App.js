@@ -182,14 +182,6 @@ function App() {
             removeItemFromChart={removeItemFromChart}
             calculateTotalPrice={calculateTotalPrice}
           />
-          {/* <ShoppingCartModal
-            shopCartProducts={shopCartProducts}
-            setModalOpen={setModalOpen}
-            setModalProduct={setModalProduct}
-            setOpenChart={setOpenChart}
-            editQuantity={editQuantity}
-            removeItemFromChart={removeItemFromChart}
-          /> */}
         </GenericModal>
       )}
       <Footer />

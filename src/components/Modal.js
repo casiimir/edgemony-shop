@@ -14,36 +14,42 @@ function Modal({
     <div className="Modal">
       <div className="Modal--overlay" onClick={() => setModalOpen(false)}></div>
       <div className="Modal__content">
-        <div className="closeButton" onClick={() => setModalOpen(false)}>
-          X
+        <div className="data">
+          <div className="closeButton" onClick={() => setModalOpen(false)}>
+            X
+          </div>
+          <h1>{title}</h1>
+          <p>{description}</p>
+          <div className="price">
+            <p className="Modal__content--price">{price}</p>
+            <button
+              onClick={() =>
+                !shopCartProductsIncludes(title)
+                  ? setShopCartProducts([
+                      ...shopCartProducts,
+                      {
+                        title: title,
+                        price: price,
+                        image: image,
+                        description: description,
+                        id: id,
+                        quantity: 1
+                      }
+                    ])
+                  : setShopCartProducts(
+                      shopCartProducts.filter((product) => product.id !== id)
+                    )
+              }
+            >
+              {!shopCartProductsIncludes(title)
+                ? 'Add to cart'
+                : 'Remove from cart'}
+            </button>
+          </div>
         </div>
-        <img src={image} alt={title} />
-        <h1>{title}</h1>
-        <p>{description}</p>
-        <p className="Modal__content--price">{price}</p>
-        <button
-          onClick={() =>
-            !shopCartProductsIncludes(title)
-              ? setShopCartProducts([
-                  ...shopCartProducts,
-                  {
-                    title: title,
-                    price: price,
-                    image: image,
-                    description: description,
-                    id: id,
-                    quantity: 1
-                  }
-                ])
-              : setShopCartProducts(
-                  shopCartProducts.filter((product) => product.id !== id)
-                )
-          }
-        >
-          {!shopCartProductsIncludes(title)
-            ? 'Add to cart'
-            : 'Remove from cart'}
-        </button>
+        <div className="image">
+          <img src={image} alt={title} />
+        </div>
       </div>
     </div>
   );

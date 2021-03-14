@@ -1,7 +1,5 @@
 import './Card.sass';
-
-const setMaxRangeTitle = (title) =>
-  title.length >= 16 ? title.substring(0, 16) + '...' : title;
+import { setMaxRangeTitle } from '../services/utils.js';
 
 function Card({ product, setModalOpen, setModalProduct }) {
   const { image, category, title, price } = product;
@@ -18,8 +16,8 @@ function Card({ product, setModalOpen, setModalProduct }) {
         <img src={image} alt={category} />
       </div>
       <div className="Card__info">
-        <h4>{category}</h4>
-        <h3>{setMaxRangeTitle(title)}</h3>
+        {/* <h4>{category}</h4> */}
+        <h3>{setMaxRangeTitle(title, 16)}</h3>
         <div className="Card__info--price">{price}</div>
       </div>
     </div>

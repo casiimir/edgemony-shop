@@ -1,6 +1,6 @@
 .GenericModal
   position: fixed
-  top: 58px
+  top: 0
   left: 0
   right: 0
   bottom: 0
@@ -8,7 +8,7 @@
   height: 100vh
 
   display: flex  
-  justify-content: flex-end    
+  justify-content: flex-end
 
   z-index: 9
 
@@ -31,7 +31,7 @@
     width: 100%
 
     background: #fff
-    box-shadow: 0 2px 2px #18181846
+    border-left: 1px solid #18181825
 
     @media(min-width: 676px)
       width: 65%
@@ -44,4 +44,7 @@
       padding: 5px 50px
       width: 100%
 
-      box-shadow: 0 1px 2px #18181825
+      p
+        margin: 2.5px
+        font-weight: bold
+        font-size: 1.2rem

@@ -1,7 +1,9 @@
 .ShoppingCart
   display: flex
-  flex-direction: row
+  flex-direction: column
   overflow: auto
+  width: 100%
+  padding: 0 20px 100px
 
   @media(min-width: 676px)
     flex-direction: row
@@ -15,34 +17,105 @@
     width: 100px
 
   article
+    position: relative
     display: flex
-    flex-direction: column
+    flex-direction: row
     justify-content: space-between
     align-items: center
 
-
-    margin: 10px
-    padding: 10px 20px 
-    box-shadow: 0 0 1px black
-    width: 200px
-
+    padding: 10px 
+    width: 100%
     h3
       font-size: 1rem
+    @media(min-width: 676px)      
+      margin: 10px 0
+
 
     .image
+      &::before    
+        position: absolute
+        bottom: 35px
+        left: -45px 
+
+        content:""
+        width: 85px
+        height: 50px
+        border-bottom: 2px solid #0000001e
+        border-radius: 20px
+        background: #1bebc8
+
+        opacity: .35
+        @media(min-width: 676px)
+          width: 50px
+
       img
-        width: 50px
+        width: 40px
+        height: 80px
+        margin: 0 40px 0 0
+
+        object-fit: contain
+        @media(min-width: 676px)
+          width: 85px
 
     .content
       display: flex
+      flex-direction: column
       justify-content: center
-      align-items: center
+      width: 100%
+
+      h3, p
+        margin: 0
+        padding: 5px 0
+
+        font-size: .85rem
+        @media(min-width: 676px)
+          font-size: 1rem
+          
+    .buttons
+      display: flex
+      flex-direction: column
+      margin-top: -10px
+
+      .buttons__quantity   
+        display: flex  
+        flex-direction: row
+        justify-content: center
+        align-items: center
+        
+        button
+          border-radius: 100%
+          outline: none
+          border: 0
+          width: 20px
+          height: 20px
+          font-weight: bold
+          pointer: cursor
+          margin: 0 2.5px
+          @media(min-width: 676px)
+            width: 25px
+            height: 25px
+
+      .removeBtn
+        border: 0
+        border-radius: 4px
+        @media(min-width: 676px)
+          padding: 5px 10px
+          
+    
+
   footer
     position: fixed
     bottom: 0
+    right: 0
 
+    padding: 0 10px
     width: 100%
-    box-shadow: 0 -2px 1px #18181815
+    background: #fff
+    border-left: 1px solid #18181825
 
     @media(min-width: 676px)
       width: 65%
+
+    p
+      font-weight: bold
+      text-align: right
