@@ -1,16 +1,15 @@
-import './Card.sass';
-import { setMaxRangeTitle } from '../services/utils.js';
+import './index.sass';
+import { setMaxRangeTitle } from '../../services/utils.js';
 
-function Card({ product, setModalOpen, setModalProduct, setUniqueModalOpen }) {
+function Card({ product, setProductDetail, setModalOpen }) {
   const { image, category, title, price } = product;
 
   return (
     <div
       className="Card"
       onClick={() => {
+        setProductDetail(product);
         setModalOpen(true);
-        setModalProduct(product);
-        setUniqueModalOpen(true);
       }}
     >
       <div className="Card__img">

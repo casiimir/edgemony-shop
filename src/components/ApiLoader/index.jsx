@@ -1,7 +1,7 @@
-import './Loader.sass';
+import './index.sass';
 
 function Loader() {
-  return(
+  return (
     <div className="Loader">
       <h2>Loading...</h2>
       <div className="lds-facebook">
@@ -10,7 +10,7 @@ function Loader() {
         <div></div>
       </div>
     </div>
-  )
+  );
 }
 
 export default Loader;

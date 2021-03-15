@@ -1,5 +1,5 @@
-import { setMaxRangeTitle } from '../services/utils.js';
-import './ShoppingCart.sass';
+import { setMaxRangeTitle } from '../../services/utils.js';
+import './index.sass';
 
 export default function ShoppingCart({
   shopCartProducts,

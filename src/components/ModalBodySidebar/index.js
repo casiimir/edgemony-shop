@@ -1,4 +1,4 @@
-import './ModalBodySidebar.sass';
+import './index.sass';
 
 export default function ModalBodySidebar({ children, onClose }) {
   return (

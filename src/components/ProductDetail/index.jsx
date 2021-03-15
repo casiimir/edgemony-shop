@@ -1,7 +1,7 @@
-import './ProductDetail.sass';
+import './index.sass';
 
 export default function ProductDetail({
-  product,
+  productDetail,
   shopCartProducts,
   setShopCartProducts,
   onClose
@@ -9,7 +9,7 @@ export default function ProductDetail({
   const shopCartProductsIncludes = (value) =>
     shopCartProducts.find((pro) => pro.title.includes(value));
 
-  const { image, title, description, price, id } = product;
+  const { image, title, description, price, id } = productDetail;
 
   return (
     <div className="ProductDetail__content">

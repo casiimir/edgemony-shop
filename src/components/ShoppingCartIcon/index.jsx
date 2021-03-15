@@ -1,10 +1,9 @@
-import './ShoppingCartHeader.sass';
-import shoppingCartIco from '../mocks/img/shopping-cart.png';
+import './index.sass';
+import shoppingCartIco from '../../mocks/img/shopping-cart.png';
 
 function ShoppingCartHeader({
   shopCartProducts,
   calculateTotalPrice,
-  setGenericModalOpen,
   isCartOpen,
   setCartOpen
 }) {
@@ -18,8 +17,6 @@ function ShoppingCartHeader({
         src={shoppingCartIco}
         alt="shopping-cart"
         onClick={() => {
-          // setCartOpen(true);
-          // setGenericModalOpen(true);
           setCartOpen(!isCartOpen);
         }}
       />

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
-import { getCategoriesAPI } from '../services/api.js';
-import './Categories.sass';
+import { getCategoriesAPI } from '../../../services/api.js';
+import './index.sass';
 
 export default function Categories({ setTagSelected }) {
   const [categories, setCategories] = useState([]);

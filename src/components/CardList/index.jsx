@@ -1,20 +1,14 @@
-import Card from './Card';
-import './CardList.sass';
+import Card from '../Card';
+import './index.sass';
 
-function CardList({
-  products,
-  setModalOpen,
-  setModalProduct,
-  setUniqueModalOpen
-}) {
+function CardList({ products, setProductDetail, setModalOpen }) {
   return (
     <section className="CardList">
       {products.map((product) => (
         <Card
           product={product}
+          setProductDetail={setProductDetail}
           setModalOpen={setModalOpen}
-          setModalProduct={setModalProduct}
-          setUniqueModalOpen={setUniqueModalOpen}
           key={product.id}
         />
       ))}

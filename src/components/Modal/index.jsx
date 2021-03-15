@@ -1,13 +1,12 @@
-import './Modal.sass';
+import './index.sass';
 
-export default function ModalProduct({ onClose, children, blockScroll }) {
+export default function ModalProduct({ onClose, children }) {
   return (
     <div className="Modal">
       <div
         className="Modal--overlay"
         onClick={() => {
           onClose();
-          blockScroll();
         }}
       ></div>
       {children}
