@@ -16,6 +16,9 @@ import './App.sass';
 
 // TEST
 import Modal from './components/Modal';
+import ProductDetail from './components/ProductDetail';
+import ModalBodyCenter from './components/ModalBodyCenter.js';
+import ModalBodySidebar from './components/ModalBodySidebar.js';
 
 const data = {
   title: 'Edgemony Shop',
@@ -54,14 +57,12 @@ function App() {
   const [isModalOpen, setModalOpen] = useState(false);
   const [modalProduct, setModalProduct] = useState({});
 
-  // Search state management
+  // Search & Tag (categories) state management
   const [searchProducts, setSearchProducts] = useState('');
+  const [tagSelected, setTagSelected] = useState([]);
   // Get the input from SearchField <input> onInput
   const getValueFromInput = (evt) =>
     setSearchProducts(evt.target.value.toLowerCase());
-
-  // Tag (Categories) state management
-  const [tagSelected, setTagSelected] = useState([]);
 
   // Shop cart state management
   const [shopCartProducts, setShopCartProducts] = useState([]);
@@ -97,6 +98,7 @@ function App() {
   // TEst
   // Modal
   const [isUniqueModalOpen, setUniqueModalOpen] = useState(false);
+  const [isCartOpen, setCartOpen] = useState(false);
 
   return (
     <div className={isGenericModalOpen ? 'App blockScroll' : 'App'}>
@@ -107,6 +109,8 @@ function App() {
         calculateTotalPrice={calculateTotalPrice}
         isGenericModalOpen={isGenericModalOpen}
         setGenericModalOpen={setGenericModalOpen}
+        isCartOpen={isCartOpen}
+        setCartOpen={setCartOpen}
       />
       <Hero
         title={data.title}
@@ -142,8 +146,7 @@ function App() {
           setErrorBanner={() => setErrorBanner(true)}
         />
       )}
-
-      {isGenericModalOpen && (
+      {/* {isGenericModalOpen && (
         <GenericModal
           isOpen={isGenericModalOpen}
           onClose={() => setGenericModalOpen(false)}
@@ -156,17 +159,52 @@ function App() {
             calculateTotalPrice={calculateTotalPrice}
           />
         </GenericModal>
+      )} */}
+
+      {isCartOpen && (
+        <Modal blockScroll={() => setGenericModalOpen(false)}>
+          <ModalBodySidebar onClose={() => setCartOpen(false)}>
+            <ShoppingCart
+              shopCartProducts={shopCartProducts}
+              editQuantity={editQuantity}
+              removeItemFromChart={removeItemFromChart}
+              calculateTotalPrice={calculateTotalPrice}
+            />
+          </ModalBodySidebar>
+        </Modal>
       )}
+
       <Footer />
       {/* TEST */}
-      {isUniqueModalOpen && (
+      {/* {isUniqueModalOpen && (
         <Modal
           onClose={() => setUniqueModalOpen(false)}
           product={modalProduct}
           shopCartProducts={shopCartProducts}
           setShopCartProducts={setShopCartProducts}
         >
-          <h1>asd</h1>
+          <ProductDetail
+            product={modalProduct}
+            setShopCartProducts={setShopCartProducts}
+            shopCartProducts={shopCartProducts}
+            onClose={() => setUniqueModalOpen(false)}
+          />
+        </Modal>
+      )} */}
+
+      {isUniqueModalOpen && (
+        <Modal
+          onClose={() => setUniqueModalOpen(false)}
+          blockScroll={() => setGenericModalOpen(false)}
+        >
+          <ModalBodyCenter>
+            <ProductDetail
+              product={modalProduct}
+              setShopCartProducts={setShopCartProducts}
+              shopCartProducts={shopCartProducts}
+              onClose={() => setUniqueModalOpen(false)}
+            />
+          </ModalBodyCenter>
         </Modal>
       )}
     </div>

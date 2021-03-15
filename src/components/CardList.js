@@ -14,8 +14,8 @@ function CardList({
           product={product}
           setModalOpen={setModalOpen}
           setModalProduct={setModalProduct}
-          key={product.id}
           setUniqueModalOpen={setUniqueModalOpen}
+          key={product.id}
         />
       ))}
     </section>

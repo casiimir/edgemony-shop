@@ -4,7 +4,9 @@ import shoppingCartIco from '../mocks/img/shopping-cart.png';
 function ShoppingCartHeader({
   shopCartProducts,
   calculateTotalPrice,
-  setGenericModalOpen
+  setGenericModalOpen,
+  isCartOpen,
+  setCartOpen
 }) {
   return (
     <div className="chart">
@@ -16,8 +18,9 @@ function ShoppingCartHeader({
         src={shoppingCartIco}
         alt="shopping-cart"
         onClick={() => {
-          // setOpenChart(true);
-          setGenericModalOpen(true);
+          // setCartOpen(true);
+          // setGenericModalOpen(true);
+          setCartOpen(!isCartOpen);
         }}
       />
       <div className="chart--elsInChart">
