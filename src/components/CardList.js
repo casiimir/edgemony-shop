@@ -1,7 +1,12 @@
 import Card from './Card';
 import './CardList.sass';
 
-function CardList({ products, setModalOpen, setModalProduct }) {
+function CardList({
+  products,
+  setModalOpen,
+  setModalProduct,
+  setUniqueModalOpen
+}) {
   return (
     <section className="CardList">
       {products.map((product) => (
@@ -10,6 +15,7 @@ function CardList({ products, setModalOpen, setModalProduct }) {
           setModalOpen={setModalOpen}
           setModalProduct={setModalProduct}
           key={product.id}
+          setUniqueModalOpen={setUniqueModalOpen}
         />
       ))}
     </section>

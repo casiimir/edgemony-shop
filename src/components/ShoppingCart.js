@@ -3,7 +3,6 @@ import './ShoppingCart.sass';
 
 export default function ShoppingCart({
   shopCartProducts,
-  setOpenChart,
   editQuantity,
   removeItemFromChart,
   calculateTotalPrice
