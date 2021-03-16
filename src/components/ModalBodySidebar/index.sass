@@ -1,0 +1,31 @@
+.ModalBodySidebar
+  position: fixed
+  top: 0
+  left: 0
+  right: 0
+  bottom: 0
+
+  height: 100vh
+
+  display: flex  
+  justify-content: flex-end
+
+  z-index: 9
+
+  .ModalBodySidebar--overlay
+    position: fixed
+    top: 0
+    left: 0
+    right: 0
+    bottom: 0
+    background: #fff
+
+    width: 0
+
+    cursor: pointer
+    opacity: .75
+    z-index: 1
+
+    @media(min-width: 676px)
+      width: 50%
+

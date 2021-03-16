@@ -1,0 +1,31 @@
+.Modal
+  position: fixed
+  top: 57px
+  right: 0
+  bottom: 0
+  left: 0
+  
+  display: flex
+  justify-content: center
+  align-items: center
+
+  max-width: 100vw
+  height: 100vh
+
+  background: rgba(255,255,255,.85)
+
+  animation: fadeIn .35s
+  z-index: 3
+
+  .Modal--overlay
+    position: fixed
+    top: 0
+    right: 0
+    bottom: 0
+    left: 0
+
+    max-width: 100vw
+    height: 100vh
+
+    cursor: pointer
+    z-index: -1

@@ -1,4 +1,4 @@
-import './SearchField.sass';
+import './index.sass';
 
 function SearchField({ setSearchProducts }) {
   return (

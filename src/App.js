@@ -1,19 +1,23 @@
 import { useState, useEffect } from 'react';
 import { getProductsAPI } from './services/api.js';
 
-import Header from './components/Header';
-import Hero from './components/Hero';
-import SearchField from './components/SearchField';
-import Categories from './components/Categories';
-import CardList from './components/CardList';
-import Loader from './components/Loader';
-import DataFail from './components/DataFail';
-import Footer from './components/Footer';
+import Header from './components/Header/index';
+import HeroSection from './components/HeroSection/index';
 
-import GenericModal from './components/GenericModal';
-import ShoppingCart from './components/ShoppingCart';
-import Modal from './components/Modal';
-import ShoppingCartModal from './components/ShoppingCartModal';
+import CardList from './components/CardList/index';
+import SearchSection from './components/SearchSection/index';
+import ApiLoader from './components/ApiLoader/index';
+import ApiDataFail from './components/ApiDataFail/index';
+
+import Modal from './components/Modal/index';
+import ModalBodyCenter from './components/ModalBodyCenter/index';
+import ModalBodySidebar from './components/ModalBodySidebar/index';
+
+import Cart from './components/Cart/index';
+import ProductDetail from './components/ProductDetail/index';
+
+import Footer from './components/Footer/index';
+
 import './App.sass';
 
 const data = {
@@ -30,6 +34,8 @@ function App() {
   const [products, setProduct] = useState();
   const [isProductsLoad, setProductsLoad] = useState(true);
   const [reloadAPICall, setReloadAPICall] = useState(true);
+  // Error API state management
+  const [isErrorBanner, setErrorBanner] = useState(false);
 
   useEffect(() => {
     if (reloadAPICall) {
@@ -46,28 +52,32 @@ function App() {
     }
   }, [reloadAPICall]);
 
-  // Error API state management
-  const [isErrorBanner, setErrorBanner] = useState(false);
+  const filteredProducts = () =>
+    products
+      .filter((product) => product.category.includes(tagSelected))
+      .filter(
+        (el) =>
+          el.title.toLowerCase().includes(searchProducts) ||
+          el.description.toLowerCase().includes(searchProducts)
+      );
 
-  // Modal state management
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [modalProduct, setModalProduct] = useState({});
-
-  // Search state management
+  // Search & Tag (categories) state management
   const [searchProducts, setSearchProducts] = useState('');
+  const [tagSelected, setTagSelected] = useState([]);
   // Get the input from SearchField <input> onInput
   const getValueFromInput = (evt) =>
     setSearchProducts(evt.target.value.toLowerCase());
 
-  // Tag (Categories) state management
-  const [tagSelected, setTagSelected] = useState([]);
+  // Modal state management
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [isCartOpen, setCartOpen] = useState(false);
+  const [productDetail, setProductDetail] = useState({});
 
-  // Shop cart state management
-  const [shopCartProducts, setShopCartProducts] = useState([]);
-  const [isOpenChart, setOpenChart] = useState(false);
+  // Cart state management and functions
+  const [cartProducts, setCartProducts] = useState([]);
 
   const calculateTotalPrice = () => {
-    const value = shopCartProducts
+    const value = cartProducts
       .reduce((cont, product) => cont + product.price * product.quantity, 0)
       .toFixed(2);
     return new Intl.NumberFormat('it-IT', {
@@ -77,114 +87,83 @@ function App() {
   };
 
   const editQuantity = (productID, quantity) => {
-    setShopCartProducts(
-      shopCartProducts.map((cartItem) =>
+    setCartProducts(
+      cartProducts.map((cartItem) =>
         productID === cartItem.id ? { ...cartItem, quantity } : cartItem
       )
     );
   };
 
   const removeItemFromChart = (productID) => {
-    setShopCartProducts(
-      shopCartProducts.filter((cartItem) => cartItem.id !== productID)
+    setCartProducts(
+      cartProducts.filter((cartItem) => cartItem.id !== productID)
     );
   };
 
-  // Generic Modal state management
-  const [isGenericModalOpen, setGenericModalOpen] = useState(false);
-
   return (
-    <div className={isGenericModalOpen ? 'App blockScroll' : 'App'}>
+    <div className="App">
       <Header
         logo={data.logo}
-        shopCartProducts={shopCartProducts}
-        setOpenChart={setOpenChart}
+        cartProducts={cartProducts}
         calculateTotalPrice={calculateTotalPrice}
-        isGenericModalOpen={isGenericModalOpen}
-        setGenericModalOpen={setGenericModalOpen}
+        isCartOpen={isCartOpen}
+        setCartOpen={setCartOpen}
       />
-
-      <Hero
+      <HeroSection
         title={data.title}
         cover={data.cover}
         description={data.description}
       />
 
-      <div className="Search">
-        <SearchField setSearchProducts={getValueFromInput} />
-
-        <Categories setTagSelected={setTagSelected} />
-      </div>
+      <SearchSection
+        setTagSelected={setTagSelected}
+        setSearchProducts={getValueFromInput}
+      />
 
       {isProductsLoad ? (
         products ? (
           <CardList
-            products={products
-              .filter((product) => product.category.includes(tagSelected))
-              .filter(
-                (el) =>
-                  el.title.toLowerCase().includes(searchProducts) ||
-                  el.description.toLowerCase().includes(searchProducts)
-              )}
-            setModalOpen={setModalOpen}
-            setModalProduct={(value) => setModalProduct(value)}
+            products={filteredProducts()}
+            setProductDetail={setProductDetail}
+            setModalOpen={() => setModalOpen(true)}
           />
         ) : (
-          <Loader />
+          <ApiLoader />
         )
       ) : (
-        <DataFail
+        <ApiDataFail
           setReloadAPICall={() => setReloadAPICall(true)}
           isErrorBanner={isErrorBanner}
           setErrorBanner={() => setErrorBanner(true)}
         />
       )}
 
-      {
-        // Show Product Modal if click in one of the products' card
-        isModalOpen && (
-          <Modal
-            product={modalProduct}
-            setModalOpen={setModalOpen}
-            shopCartProducts={shopCartProducts}
-            setShopCartProducts={setShopCartProducts}
-          />
-        )
-      }
-
-      {
-        // Show Shop Cart Modal if click in header's icon
-        isOpenChart && (
-          <ShoppingCartModal
-            shopCartProducts={shopCartProducts}
-            setModalOpen={setModalOpen}
-            setModalProduct={setModalProduct}
-            setOpenChart={setOpenChart}
-            editQuantity={editQuantity}
-            removeItemFromChart={removeItemFromChart}
-            calculateTotalPrice={calculateTotalPrice}
-          />
-        )
-      }
-
-      {isGenericModalOpen && (
-        <GenericModal
-          isOpen={isGenericModalOpen}
-          onClose={setGenericModalOpen}
-          title="Cart"
-        >
-          <ShoppingCart
-            shopCartProducts={shopCartProducts}
-            setModalOpen={setModalOpen}
-            setModalProduct={setModalProduct}
-            setOpenChart={setOpenChart}
-            editQuantity={editQuantity}
-            removeItemFromChart={removeItemFromChart}
-            calculateTotalPrice={calculateTotalPrice}
-          />
-        </GenericModal>
-      )}
       <Footer />
+
+      {isCartOpen && (
+        <Modal onClose={() => setModalOpen(false)}>
+          <ModalBodySidebar onClose={() => setCartOpen(false)}>
+            <Cart
+              cartProducts={cartProducts}
+              editQuantity={editQuantity}
+              removeItemFromChart={removeItemFromChart}
+              calculateTotalPrice={calculateTotalPrice}
+            />
+          </ModalBodySidebar>
+        </Modal>
+      )}
+      {isModalOpen && (
+        <Modal onClose={() => setModalOpen(false)}>
+          <ModalBodyCenter>
+            <ProductDetail
+              productDetail={productDetail}
+              setCartProducts={setCartProducts}
+              cartProducts={cartProducts}
+              onClose={() => setModalOpen(false)}
+            />
+          </ModalBodyCenter>
+        </Modal>
+      )}
     </div>
   );
 }

@@ -1,4 +1,4 @@
-import './Hero.sass';
+import './index.sass';
 
 function Hero({ title, cover, description }) {
   return (
