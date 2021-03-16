@@ -9,7 +9,7 @@ function Card({ product, setProductDetail, setModalOpen }) {
       className="Card"
       onClick={() => {
         setProductDetail(product);
-        setModalOpen(true);
+        setModalOpen();
       }}
     >
       <div className="Card__img">

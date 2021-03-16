@@ -34,6 +34,8 @@ function App() {
   const [products, setProduct] = useState();
   const [isProductsLoad, setProductsLoad] = useState(true);
   const [reloadAPICall, setReloadAPICall] = useState(true);
+  // Error API state management
+  const [isErrorBanner, setErrorBanner] = useState(false);
 
   useEffect(() => {
     if (reloadAPICall) {
@@ -50,13 +52,14 @@ function App() {
     }
   }, [reloadAPICall]);
 
-  // Error API state management
-  const [isErrorBanner, setErrorBanner] = useState(false);
-
-  // Modal state management
-  const [isModalOpen, setModalOpen] = useState(false);
-  const [isCartOpen, setCartOpen] = useState(false);
-  const [productDetail, setProductDetail] = useState({});
+  const filteredProducts = () =>
+    products
+      .filter((product) => product.category.includes(tagSelected))
+      .filter(
+        (el) =>
+          el.title.toLowerCase().includes(searchProducts) ||
+          el.description.toLowerCase().includes(searchProducts)
+      );
 
   // Search & Tag (categories) state management
   const [searchProducts, setSearchProducts] = useState('');
@@ -65,11 +68,16 @@ function App() {
   const getValueFromInput = (evt) =>
     setSearchProducts(evt.target.value.toLowerCase());
 
+  // Modal state management
+  const [isModalOpen, setModalOpen] = useState(false);
+  const [isCartOpen, setCartOpen] = useState(false);
+  const [productDetail, setProductDetail] = useState({});
+
   // Cart state management and functions
-  const [shopCartProducts, setShopCartProducts] = useState([]);
+  const [cartProducts, setCartProducts] = useState([]);
 
   const calculateTotalPrice = () => {
-    const value = shopCartProducts
+    const value = cartProducts
       .reduce((cont, product) => cont + product.price * product.quantity, 0)
       .toFixed(2);
     return new Intl.NumberFormat('it-IT', {
@@ -79,16 +87,16 @@ function App() {
   };
 
   const editQuantity = (productID, quantity) => {
-    setShopCartProducts(
-      shopCartProducts.map((cartItem) =>
+    setCartProducts(
+      cartProducts.map((cartItem) =>
         productID === cartItem.id ? { ...cartItem, quantity } : cartItem
       )
     );
   };
 
   const removeItemFromChart = (productID) => {
-    setShopCartProducts(
-      shopCartProducts.filter((cartItem) => cartItem.id !== productID)
+    setCartProducts(
+      cartProducts.filter((cartItem) => cartItem.id !== productID)
     );
   };
 
@@ -96,7 +104,7 @@ function App() {
     <div className="App">
       <Header
         logo={data.logo}
-        shopCartProducts={shopCartProducts}
+        cartProducts={cartProducts}
         calculateTotalPrice={calculateTotalPrice}
         isCartOpen={isCartOpen}
         setCartOpen={setCartOpen}
@@ -115,15 +123,9 @@ function App() {
       {isProductsLoad ? (
         products ? (
           <CardList
-            products={products
-              .filter((product) => product.category.includes(tagSelected))
-              .filter(
-                (el) =>
-                  el.title.toLowerCase().includes(searchProducts) ||
-                  el.description.toLowerCase().includes(searchProducts)
-              )}
+            products={filteredProducts()}
             setProductDetail={setProductDetail}
-            setModalOpen={setModalOpen}
+            setModalOpen={() => setModalOpen(true)}
           />
         ) : (
           <ApiLoader />
@@ -139,10 +141,10 @@ function App() {
       <Footer />
 
       {isCartOpen && (
-        <Modal>
+        <Modal onClose={() => setModalOpen(false)}>
           <ModalBodySidebar onClose={() => setCartOpen(false)}>
             <Cart
-              shopCartProducts={shopCartProducts}
+              cartProducts={cartProducts}
               editQuantity={editQuantity}
               removeItemFromChart={removeItemFromChart}
               calculateTotalPrice={calculateTotalPrice}
@@ -155,8 +157,8 @@ function App() {
           <ModalBodyCenter>
             <ProductDetail
               productDetail={productDetail}
-              setShopCartProducts={setShopCartProducts}
-              shopCartProducts={shopCartProducts}
+              setCartProducts={setCartProducts}
+              cartProducts={cartProducts}
               onClose={() => setModalOpen(false)}
             />
           </ModalBodyCenter>

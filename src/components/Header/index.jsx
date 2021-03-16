@@ -3,7 +3,7 @@ import ShoppingCartIcon from '../ShoppingCartIcon';
 
 function Header({
   logo,
-  shopCartProducts,
+  cartProducts,
   calculateTotalPrice,
   isCartOpen,
   setCartOpen
@@ -12,10 +12,10 @@ function Header({
     <header className="Header">
       <img className="Header__logo" src={logo} alt="logo" />
       <ShoppingCartIcon
-        shopCartProducts={shopCartProducts}
+        cartProducts={cartProducts}
         calculateTotalPrice={calculateTotalPrice}
-        isCartOpen={isCartOpen}
-        setCartOpen={setCartOpen}
+        isOpen={isCartOpen}
+        toggleOpen={setCartOpen}
       />
     </header>
   );

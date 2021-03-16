@@ -2,18 +2,19 @@ import { setMaxRangeTitle } from '../../services/utils.js';
 import './index.sass';
 
 export default function ShoppingCart({
-  shopCartProducts,
+  cartProducts,
   editQuantity,
   removeItemFromChart,
   calculateTotalPrice
 }) {
   return (
     <div className="ShoppingCart">
-      {shopCartProducts.map((product) => (
+      {cartProducts.map((product) => (
         <article key={product.id}>
           <div className="image">
             <img src={product.image} alt={product.title} />
           </div>
+
           <div className="content">
             <h3>
               {window.innerWidth <= 500
@@ -22,6 +23,7 @@ export default function ShoppingCart({
             </h3>
             <p>{product.price}€</p>
           </div>
+
           <div className="buttons">
             <div className="buttons__quantity">
               <button
@@ -57,7 +59,7 @@ export default function ShoppingCart({
       ))}
       <footer>
         <p>
-          {shopCartProducts.length >= 1
+          {cartProducts.length >= 1
             ? calculateTotalPrice()
             : 'No product available in this cart.'}
         </p>
