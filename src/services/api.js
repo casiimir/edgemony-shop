@@ -1,5 +1,7 @@
+const baseURL = 'https://fakestoreapi.com';
+
 async function callAPI(endPoint) {
-  const result = await fetch(endPoint);
+  const result = await fetch(`${baseURL}/${endPoint}`);
   const data = await result.json();
   if (result.status >= 400) {
     throw new Error(`Error ${result.status}!`);
@@ -7,10 +9,14 @@ async function callAPI(endPoint) {
   return data;
 }
 
+export async function getProductAPI(id) {
+  return callAPI(`products/${id}`);
+}
+
 export async function getProductsAPI() {
-  return callAPI('https://fakestoreapi.com/products');
+  return callAPI('products');
 }
 
 export async function getCategoriesAPI() {
-  return callAPI('https://fakestoreapi.com/products/categories');
+  return callAPI('products/categories');
 }

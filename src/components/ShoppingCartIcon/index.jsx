@@ -19,6 +19,7 @@ function ShoppingCartHeader({
         alt="shopping-cart"
         onClick={() => {
           toggleOpen(!isOpen);
+          console.log(cartProducts);
         }}
       />
 
