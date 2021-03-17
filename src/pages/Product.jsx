@@ -4,7 +4,7 @@ import { useParams } from 'react-router-dom';
 import { getProductAPI } from '../services/api';
 import './Product.sass';
 
-export default function Product() {
+export default function Product({ isInCart, addToCart, removeItemFromChart }) {
   let { productID } = useParams();
   const [product, setProduct] = useState(null);
 
@@ -14,6 +14,14 @@ export default function Product() {
     });
   }, [productID]);
 
+  const toggleCart = () => {
+    if (isInCart(product)) {
+      removeItemFromChart(product.id);
+    } else {
+      addToCart(product);
+    }
+  };
+
   return (
     <div className="Product">
       {product ? (
@@ -22,6 +30,9 @@ export default function Product() {
           <p>{product.description}</p>
           <p>{product.price}</p>
           <img src={product.image} alt={product.title} />
+          <button type="button" className="addToCart" onClick={toggleCart}>
+            {isInCart(product) ? 'Remove to Cart -' : 'Add to Cart +'}
+          </button>
         </div>
       ) : (
         <p>Loading...</p>

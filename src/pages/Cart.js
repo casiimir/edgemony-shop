@@ -1,4 +1,3 @@
-import { BrowserRouter as Router, Switch, Route, Link } from 'react-router-dom';
 import { setMaxRangeTitle } from '../services/utils.js';
 import './Cart.sass';
 

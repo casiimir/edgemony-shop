@@ -36,6 +36,13 @@ function App() {
     }).format(value);
   };
 
+  const isInCart = (product) =>
+    product != null && cartProducts.find((p) => p.id === product.id) != null;
+
+  const addToCart = (product) => {
+    setCartProducts([...cartProducts, { ...product, quantity: 1 }]);
+  };
+
   const editQuantity = (productID, quantity) => {
     setCartProducts(
       cartProducts.map((cartItem) =>
@@ -63,18 +70,14 @@ function App() {
 
         <Switch>
           <Route exact path="/">
-            <Home
-              data={data}
-              cartProducts={cartProducts}
-              setCartProducts={setCartProducts}
-              isCartOpen={isCartOpen}
-              setCartOpen={setCartOpen}
-              editQuantity={editQuantity}
-              removeItemFromChart={removeItemFromChart}
-            />
+            <Home data={data} />
           </Route>
           <Route path="/product/:productID">
-            <Product />
+            <Product
+              isInCart={isInCart}
+              addToCart={addToCart}
+              removeItemFromChart={removeItemFromChart}
+            />
           </Route>
           <Route path="/cart">
             <Cart
