@@ -24,7 +24,9 @@ function Home({
   cartProducts,
   setCartProducts,
   isCartOpen,
-  setCartOpen
+  setCartOpen,
+  editQuantity,
+  removeItemFromChart
 }) {
   // API state management
   const [products, setProduct] = useState();
@@ -79,20 +81,6 @@ function Home({
       style: 'currency',
       currency: 'EUR'
     }).format(value);
-  };
-
-  const editQuantity = (productID, quantity) => {
-    setCartProducts(
-      cartProducts.map((cartItem) =>
-        productID === cartItem.id ? { ...cartItem, quantity } : cartItem
-      )
-    );
-  };
-
-  const removeItemFromChart = (productID) => {
-    setCartProducts(
-      cartProducts.filter((cartItem) => cartItem.id !== productID)
-    );
   };
 
   return (

@@ -3,6 +3,7 @@ import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
 import Product from './pages/Product';
+import Cart from './pages/Cart';
 import Page404 from './pages/Page404';
 
 import Header from './components/Header/index';
@@ -35,6 +36,20 @@ function App() {
     }).format(value);
   };
 
+  const editQuantity = (productID, quantity) => {
+    setCartProducts(
+      cartProducts.map((cartItem) =>
+        productID === cartItem.id ? { ...cartItem, quantity } : cartItem
+      )
+    );
+  };
+
+  const removeItemFromChart = (productID) => {
+    setCartProducts(
+      cartProducts.filter((cartItem) => cartItem.id !== productID)
+    );
+  };
+
   return (
     <Router>
       <div className="App">
@@ -54,10 +69,19 @@ function App() {
               setCartProducts={setCartProducts}
               isCartOpen={isCartOpen}
               setCartOpen={setCartOpen}
+              editQuantity={editQuantity}
             />
           </Route>
           <Route path="/product/:productID">
             <Product />
+          </Route>
+          <Route path="/cart">
+            <Cart
+              cartProducts={cartProducts}
+              editQuantity={editQuantity}
+              removeItemFromChart={removeItemFromChart}
+              calculateTotalPrice={calculateTotalPrice}
+            />
           </Route>
           <Route path="*">
             <Page404 />
