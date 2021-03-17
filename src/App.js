@@ -70,6 +70,7 @@ function App() {
               isCartOpen={isCartOpen}
               setCartOpen={setCartOpen}
               editQuantity={editQuantity}
+              removeItemFromChart={removeItemFromChart}
             />
           </Route>
           <Route path="/product/:productID">

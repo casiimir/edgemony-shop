@@ -1,3 +1,5 @@
+import { Link } from 'react-router-dom';
+
 import './index.sass';
 import shoppingCartIco from '../../mocks/img/shopping-cart.png';
 
@@ -12,17 +14,13 @@ function ShoppingCartHeader({
       <p className="chart--total">
         {!!cartProducts.length && calculateTotalPrice()}
       </p>
-
-      <img
-        className="chart--shopping"
-        src={shoppingCartIco}
-        alt="shopping-cart"
-        onClick={() => {
-          toggleOpen(!isOpen);
-          console.log(cartProducts);
-        }}
-      />
-
+      <Link to="/cart">
+        <img
+          className="chart--shopping"
+          src={shoppingCartIco}
+          alt="shopping-cart"
+        />
+      </Link>
       <div className="chart--elsInChart">
         {cartProducts.length > 0 ? cartProducts.length : ''}
       </div>

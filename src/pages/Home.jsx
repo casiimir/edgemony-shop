@@ -11,7 +11,7 @@ import Modal from '../components/Modal/index';
 import ModalBodyCenter from '../components/ModalBodyCenter/index';
 import ModalBodySidebar from '../components/ModalBodySidebar/index';
 
-import Cart from '../components/Cart/index';
+import ShoppingCart from '../components/ShoppingCart/index';
 import ProductDetail from '../components/ProductDetail/index';
 
 import Footer from '../components/Footer/index';
@@ -119,7 +119,7 @@ function Home({
       {isCartOpen && (
         <Modal onClose={() => setModalOpen(false)}>
           <ModalBodySidebar onClose={() => setCartOpen(false)}>
-            <Cart
+            <ShoppingCart
               cartProducts={cartProducts}
               editQuantity={editQuantity}
               removeItemFromChart={removeItemFromChart}
