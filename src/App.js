@@ -1,22 +1,12 @@
-import { useState, useEffect } from 'react';
-import { getProductsAPI } from './services/api.js';
+import { useState } from 'react';
+import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+
+import Home from './pages/Home';
+import Product from './pages/Product';
+import Cart from './pages/Cart';
+import Page404 from './pages/Page404';
 
 import Header from './components/Header/index';
-import HeroSection from './components/HeroSection/index';
-
-import CardList from './components/CardList/index';
-import SearchSection from './components/SearchSection/index';
-import ApiLoader from './components/ApiLoader/index';
-import ApiDataFail from './components/ApiDataFail/index';
-
-import Modal from './components/Modal/index';
-import ModalBodyCenter from './components/ModalBodyCenter/index';
-import ModalBodySidebar from './components/ModalBodySidebar/index';
-
-import Cart from './components/Cart/index';
-import ProductDetail from './components/ProductDetail/index';
-
-import Footer from './components/Footer/index';
 
 import './App.sass';
 
@@ -30,48 +20,8 @@ const data = {
 };
 
 function App() {
-  // API state management
-  const [products, setProduct] = useState();
-  const [isProductsLoad, setProductsLoad] = useState(true);
-  const [reloadAPICall, setReloadAPICall] = useState(true);
-  // Error API state management
-  const [isErrorBanner, setErrorBanner] = useState(false);
-
-  useEffect(() => {
-    if (reloadAPICall) {
-      getProductsAPI()
-        .then((data) => {
-          setProduct(data);
-          setProductsLoad(true);
-        })
-        .catch((error) => {
-          console.log(error.message);
-          setProductsLoad(false);
-          setReloadAPICall(false);
-        });
-    }
-  }, [reloadAPICall]);
-
-  const filteredProducts = () =>
-    products
-      .filter((product) => product.category.includes(tagSelected))
-      .filter(
-        (el) =>
-          el.title.toLowerCase().includes(searchProducts) ||
-          el.description.toLowerCase().includes(searchProducts)
-      );
-
-  // Search & Tag (categories) state management
-  const [searchProducts, setSearchProducts] = useState('');
-  const [tagSelected, setTagSelected] = useState([]);
-  // Get the input from SearchField <input> onInput
-  const getValueFromInput = (evt) =>
-    setSearchProducts(evt.target.value.toLowerCase());
-
   // Modal state management
-  const [isModalOpen, setModalOpen] = useState(false);
   const [isCartOpen, setCartOpen] = useState(false);
-  const [productDetail, setProductDetail] = useState({});
 
   // Cart state management and functions
   const [cartProducts, setCartProducts] = useState([]);
@@ -84,6 +34,13 @@ function App() {
       style: 'currency',
       currency: 'EUR'
     }).format(value);
+  };
+
+  const isInCart = (product) =>
+    product != null && cartProducts.find((p) => p.id === product.id) != null;
+
+  const addToCart = (product) => {
+    setCartProducts([...cartProducts, { ...product, quantity: 1 }]);
   };
 
   const editQuantity = (productID, quantity) => {
@@ -101,70 +58,41 @@ function App() {
   };
 
   return (
-    <div className="App">
-      <Header
-        logo={data.logo}
-        cartProducts={cartProducts}
-        calculateTotalPrice={calculateTotalPrice}
-        isCartOpen={isCartOpen}
-        setCartOpen={setCartOpen}
-      />
-      <HeroSection
-        title={data.title}
-        cover={data.cover}
-        description={data.description}
-      />
-
-      <SearchSection
-        setTagSelected={setTagSelected}
-        setSearchProducts={getValueFromInput}
-      />
-
-      {isProductsLoad ? (
-        products ? (
-          <CardList
-            products={filteredProducts()}
-            setProductDetail={setProductDetail}
-            setModalOpen={() => setModalOpen(true)}
-          />
-        ) : (
-          <ApiLoader />
-        )
-      ) : (
-        <ApiDataFail
-          setReloadAPICall={() => setReloadAPICall(true)}
-          isErrorBanner={isErrorBanner}
-          setErrorBanner={() => setErrorBanner(true)}
+    <Router>
+      <div className="App">
+        <Header
+          logo={data.logo}
+          cartProducts={cartProducts}
+          calculateTotalPrice={calculateTotalPrice}
+          isCartOpen={isCartOpen}
+          setCartOpen={setCartOpen}
         />
-      )}
 
-      <Footer />
-
-      {isCartOpen && (
-        <Modal onClose={() => setModalOpen(false)}>
-          <ModalBodySidebar onClose={() => setCartOpen(false)}>
+        <Switch>
+          <Route exact path="/">
+            <Home data={data} />
+          </Route>
+          <Route path="/product/:productID">
+            <Product
+              isInCart={isInCart}
+              addToCart={addToCart}
+              removeItemFromChart={removeItemFromChart}
+            />
+          </Route>
+          <Route path="/cart">
             <Cart
               cartProducts={cartProducts}
               editQuantity={editQuantity}
               removeItemFromChart={removeItemFromChart}
               calculateTotalPrice={calculateTotalPrice}
             />
-          </ModalBodySidebar>
-        </Modal>
-      )}
-      {isModalOpen && (
-        <Modal onClose={() => setModalOpen(false)}>
-          <ModalBodyCenter>
-            <ProductDetail
-              productDetail={productDetail}
-              setCartProducts={setCartProducts}
-              cartProducts={cartProducts}
-              onClose={() => setModalOpen(false)}
-            />
-          </ModalBodyCenter>
-        </Modal>
-      )}
-    </div>
+          </Route>
+          <Route path="*">
+            <Page404 />
+          </Route>
+        </Switch>
+      </div>
+    </Router>
   );
 }
 

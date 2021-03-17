@@ -1,5 +1,6 @@
 import './index.sass';
 import ShoppingCartIcon from '../ShoppingCartIcon';
+import { Link } from 'react-router-dom';
 
 function Header({
   logo,
@@ -10,7 +11,9 @@ function Header({
 }) {
   return (
     <header className="Header">
-      <img className="Header__logo" src={logo} alt="logo" />
+      <Link to="/">
+        <img className="Header__logo" src={logo} alt="logo" />
+      </Link>
       <ShoppingCartIcon
         cartProducts={cartProducts}
         calculateTotalPrice={calculateTotalPrice}

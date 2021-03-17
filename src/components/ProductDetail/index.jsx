@@ -4,7 +4,8 @@ export default function ProductDetail({
   cartProducts,
   productDetail,
   setCartProducts,
-  onClose
+  onClose,
+  addToCart
 }) {
   const shopCartProductsIncludes = (value) =>
     cartProducts.find((pro) => pro.title.includes(value));
@@ -27,17 +28,7 @@ export default function ProductDetail({
           <button
             onClick={() =>
               !shopCartProductsIncludes(title)
-                ? setCartProducts([
-                    ...cartProducts,
-                    {
-                      title: title,
-                      price: price,
-                      image: image,
-                      description: description,
-                      id: id,
-                      quantity: 1
-                    }
-                  ])
+                ? addToCart(productDetail)
                 : setCartProducts(
                     cartProducts.filter((product) => product.id !== id)
                   )
