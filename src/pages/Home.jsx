@@ -12,20 +12,24 @@ import Footer from '../components/Footer/index';
 import { getProductsAPI } from '../services/api';
 import './Home.sass';
 
+let cache;
+
 function Home({ data }) {
   // API state management
-  const [products, setProduct] = useState();
+  const [products, setProduct] = useState(cache ? cache.productsData : []);
   const [isProductsLoad, setProductsLoad] = useState(true);
   const [reloadAPICall, setReloadAPICall] = useState(true);
   // Error API state management
   const [isErrorBanner, setErrorBanner] = useState(false);
 
   useEffect(() => {
+    if (cache !== undefined) return;
     if (reloadAPICall) {
       getProductsAPI()
-        .then((data) => {
-          setProduct(data);
+        .then((productsData) => {
+          setProduct(productsData);
           setProductsLoad(true);
+          cache = { productsData };
         })
         .catch((error) => {
           console.log(error.message);
