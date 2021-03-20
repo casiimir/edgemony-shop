@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
 
 import Home from './pages/Home';
@@ -8,7 +8,10 @@ import Page404 from './pages/Page404';
 
 import Header from './components/Header/index';
 
+import { postItemToCart } from './services/api';
 import './App.sass';
+
+let cartID;
 
 const data = {
   title: 'Edgemony Shop',
@@ -20,11 +23,10 @@ const data = {
 };
 
 function App() {
-  // Modal state management
-  const [isCartOpen, setCartOpen] = useState(false);
-
   // Cart state management and functions
   const [cartProducts, setCartProducts] = useState([]);
+  // Modal state management
+  const [isCartOpen, setCartOpen] = useState(false);
 
   const calculateTotalPrice = () => {
     const value = cartProducts
@@ -39,8 +41,9 @@ function App() {
   const isInCart = (product) =>
     product != null && cartProducts.find((p) => p.id === product.id) != null;
 
-  const addToCart = (product) => {
-    setCartProducts([...cartProducts, { ...product, quantity: 1 }]);
+  const addToCart = async (product) => {
+    const cart = await postItemToCart(cartID, product.id, 1);
+    setCartProducts(cart.items);
   };
 
   const editQuantity = (productID, quantity) => {
@@ -56,6 +59,17 @@ function App() {
       cartProducts.filter((cartItem) => cartItem.id !== productID)
     );
   };
+
+  useEffect(() => {
+    const cartFromLocalStorage = localStorage.getItem('edgemony-cart');
+    try {
+      const cartObj = JSON.parse(cartFromLocalStorage);
+      setCartProducts(cartObj.items);
+      cartID = cartObj.id;
+    } catch (error) {
+      console.error('Error with edgemony-cart localstorage => ' + error);
+    }
+  }, []);
 
   return (
     <Router>
