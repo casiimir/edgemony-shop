@@ -71,9 +71,13 @@ function App() {
     }
   }, []);
 
-  return (
-    <Router>
-      <div className="App">
+  function isPage404() {
+    if (
+      window.location.pathname === '/' ||
+      window.location.pathname.includes('/product/') ||
+      window.location.pathname.includes('/cart')
+    ) {
+      return (
         <Header
           logo={data.logo}
           cartProducts={cartProducts}
@@ -81,6 +85,14 @@ function App() {
           isCartOpen={isCartOpen}
           setCartOpen={setCartOpen}
         />
+      );
+    }
+  }
+
+  return (
+    <Router>
+      <div className="App">
+        {isPage404()}
 
         <Switch>
           <Route exact path="/">

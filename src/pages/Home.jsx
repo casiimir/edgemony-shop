@@ -65,8 +65,6 @@ function Home({ data }) {
           setErrorBanner={() => setErrorBanner(true)}
         />
       )}
-
-      <Footer />
     </div>
   );
 }

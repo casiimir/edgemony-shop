@@ -1,3 +1,83 @@
-.content
-  img
-    width: 150px
+.Product
+  display: flex
+  align-items: center
+
+  margin-top: 145px
+  padding: 25px
+  height: calc(100vh - 68px)
+
+  color: #fff
+  text-shadow: 1px 2px 2px #18181893
+
+  @media(min-width: 676px)
+    margin-top: 68px
+    padding: 50px  
+
+  p
+    color: #18181883
+    text-shadow: 0 0 0
+
+    line-height: 20px
+    letter-spacing: 1.2px
+    word-spacing: 5px
+
+    &:nth-of-type(2)
+      font-size: 1.8rem
+      &::before
+        content: '€ '
+        font-size: 1.2rem
+      
+
+  .content
+    display: flex
+    flex-direction: column
+    justify-content: space-between
+
+    border-top: 4px solid #1cdabdc2
+    border-radius: 28% 72% 52% 48% / 22% 44% 56% 78% 
+    background: linear-gradient(90deg, #6fe7dba4 0%, rgba(90,213,200,0) 70%)
+    @media(min-width: 676px)      
+      flex-direction: row
+      padding: 100px 50px
+
+      border-top: 0
+      border-left: 4px solid #1cdabdc2
+
+    .btn--left,
+    .btn--right
+      position: absolute
+      left: 0
+      top: 40%
+
+      width: 40px
+      height: 40px
+
+      background: #181818
+      color: #fff
+      border: 0
+      border-radius: 100%
+
+      font-weight: bold
+      font-size: 1.5rem
+
+      outline: none
+      cursor: pointer
+      opacity: .25
+
+      &:hover
+        opacity: .7
+
+    .btn--right
+      left: auto
+      right: 0
+
+    .text      
+      @media(min-width: 676px)
+        width: 70%
+
+    .image
+      width: 25%
+      img
+        width: 250px
+
+    
